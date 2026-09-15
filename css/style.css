@@ -12,14 +12,15 @@
   --color-gray: #6f6f6f;
   --color-gray-light: #b9b9b7;
   --color-border: #d8d6d3;
+  --color-placeholder: #cfcfcd;
 
   --font-heading: "Oswald", "Arial Narrow", Arial, sans-serif;
   --font-body: "Roboto", Arial, Helvetica, sans-serif;
 
   --container-width: 1180px;
-  --container-pad: 20px;
+  --container-pad: 40px;
 
-  --section-pad-y: 56px;
+  --header-height: 141px;
 }
 
 /* =========================================================
@@ -61,19 +62,39 @@ h1, h2, h3, h4 {
 }
 
 /* =========================================================
+   Full-screen block sections
+   Every major block occupies at least one full viewport height,
+   with its content vertically centered and the divider button
+   pinned to the bottom edge as a scroll cue.
+   ========================================================= */
+.hero,
+.directions,
+.project-block,
+.priorities,
+.approach,
+.contact {
+  position: relative;
+  min-height: calc(100vh - var(--header-height));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-block: 64px;
+}
+
+/* =========================================================
    Section title (red banner)
    ========================================================= */
 .section-title {
   background: var(--color-red);
   color: var(--color-white);
   text-align: center;
-  font-size: clamp(18px, 3vw, 24px);
-  padding: 14px 20px;
-  margin-bottom: 36px;
+  font-size: 24px;
+  padding: 16px 20px;
+  margin-bottom: 48px;
 }
 
 /* =========================================================
-   Section divider (chevron button between sections)
+   Section divider (chevron button, pinned to bottom of block)
    ========================================================= */
 .section-divider {
   display: flex;
@@ -81,9 +102,13 @@ h1, h2, h3, h4 {
   justify-content: center;
   width: 40px;
   height: 40px;
-  margin: 32px auto 0;
+  position: absolute;
+  left: 50%;
+  bottom: 32px;
+  transform: translateX(-50%);
   border: 2px solid var(--color-black);
   color: var(--color-black);
+  background: transparent;
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
@@ -114,6 +139,17 @@ h1, h2, h3, h4 {
 }
 
 /* =========================================================
+   Photo placeholders
+   Stand-ins for real photography — swap the files in /img
+   once supplied, the markup and sizing stay the same.
+   ========================================================= */
+.photo-placeholder {
+  width: 100%;
+  height: 100%;
+  background: var(--color-placeholder);
+}
+
+/* =========================================================
    Header
    ========================================================= */
 .site-header {
@@ -133,14 +169,14 @@ h1, h2, h3, h4 {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding-block: 10px;
+  padding-block: 14px;
 }
 
 .main-nav__list {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px 18px;
-  font-size: 11px;
+  gap: 4px 24px;
+  font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.03em;
   font-weight: 500;
@@ -201,21 +237,14 @@ h1, h2, h3, h4 {
   color: var(--color-red);
 }
 
+/* Mobile nav toggle is not used in this desktop build yet —
+   a separate mobile layout will introduce it later. */
 .nav-toggle {
   display: none;
-  width: 28px;
-  height: 28px;
-  align-items: center;
-  justify-content: center;
-}
-
-.nav-toggle__icon {
-  width: 20px;
-  height: 20px;
 }
 
 .header-brand {
-  padding-block: 14px;
+  padding-block: 16px;
 }
 
 .logo {
@@ -227,7 +256,7 @@ h1, h2, h3, h4 {
 .logo__name {
   font-family: var(--font-heading);
   font-weight: 700;
-  font-size: 34px;
+  font-size: 40px;
   letter-spacing: 0.03em;
   color: var(--color-black);
 }
@@ -253,36 +282,42 @@ h1, h2, h3, h4 {
 /* =========================================================
    Hero
    ========================================================= */
-.hero {
-  padding-top: 32px;
-}
-
 .hero__grid {
   display: flex;
-  flex-direction: column;
-  gap: 24px;
+  flex-direction: row;
+  align-items: center;
+  gap: 48px;
+}
+
+.hero__content,
+.hero__media {
+  flex: 1;
 }
 
 .hero__text {
   font-family: var(--font-heading);
   font-weight: 500;
-  font-size: clamp(20px, 4.4vw, 28px);
+  font-size: 32px;
   line-height: 1.28;
   text-transform: uppercase;
 }
 
+.hero__media {
+  aspect-ratio: 4 / 3;
+}
+
 .hero__media img {
   width: 100%;
-  height: auto;
+  height: 100%;
   filter: grayscale(1);
 }
 
 .stats {
   display: flex;
   justify-content: space-between;
-  gap: 12px;
-  margin-top: 32px;
-  padding-top: 24px;
+  gap: 24px;
+  margin-top: 48px;
+  padding-top: 32px;
   border-top: 1px solid var(--color-border);
 }
 
@@ -295,7 +330,7 @@ h1, h2, h3, h4 {
 .stats__number {
   font-family: var(--font-heading);
   font-weight: 700;
-  font-size: clamp(30px, 7vw, 46px);
+  font-size: 46px;
   color: var(--color-black);
   line-height: 1;
 }
@@ -306,20 +341,19 @@ h1, h2, h3, h4 {
   text-transform: uppercase;
   letter-spacing: 0.02em;
   color: var(--color-gray);
-  max-width: 12ch;
+  max-width: 16ch;
 }
 
 /* =========================================================
    Directions
    ========================================================= */
 .directions {
-  padding-block: var(--section-pad-y);
   background: var(--color-white);
 }
 
 .directions__grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 1px;
   background: var(--color-border);
   border: 1px solid var(--color-border);
@@ -327,7 +361,7 @@ h1, h2, h3, h4 {
 
 .direction-card {
   background: var(--color-white);
-  padding: 32px 20px;
+  padding: 40px 24px;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -348,13 +382,14 @@ h1, h2, h3, h4 {
 
 /* =========================================================
    Projects
+   Each project block is its own full-screen section.
    ========================================================= */
 .projects {
   background: var(--color-bg);
 }
 
 .project-block {
-  padding-block: var(--section-pad-y);
+  background: var(--color-bg);
 }
 
 .project-block:not(:last-child) {
@@ -372,16 +407,15 @@ h1, h2, h3, h4 {
 }
 
 .project-block__title {
-  font-size: clamp(18px, 3.6vw, 24px);
-  margin-bottom: 20px;
+  font-size: 24px;
+  margin-bottom: 24px;
   max-width: 40ch;
 }
 
 .project-block__list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin-bottom: 28px;
+  gap: 14px;
 }
 
 .project-block__list li {
@@ -404,7 +438,7 @@ h1, h2, h3, h4 {
 .project-block__gallery {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  gap: 16px;
 }
 
 .project-block__gallery img {
@@ -419,14 +453,13 @@ h1, h2, h3, h4 {
    Priorities
    ========================================================= */
 .priorities {
-  padding-block: var(--section-pad-y);
   background: var(--color-white);
 }
 
 .priorities__grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 28px 24px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px 32px;
 }
 
 .priority-card h3 {
@@ -445,19 +478,18 @@ h1, h2, h3, h4 {
    Approach
    ========================================================= */
 .approach {
-  padding-block: var(--section-pad-y);
   background: var(--color-bg);
 }
 
 .approach__steps {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(4, 1fr);
   gap: 24px;
   counter-reset: step;
 }
 
 .approach-step {
-  padding: 24px 20px;
+  padding: 28px 24px;
   background: var(--color-bg-alt);
   color: var(--color-black);
 }
@@ -500,19 +532,23 @@ h1, h2, h3, h4 {
    Contact
    ========================================================= */
 .contact {
-  padding-block: var(--section-pad-y);
   background: var(--color-white);
 }
 
 .contact__grid {
   display: flex;
-  flex-direction: column;
-  gap: 24px;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 48px;
+}
+
+.contact__media,
+.contact__info {
+  flex: 1;
 }
 
 .contact__media {
   position: relative;
-  aspect-ratio: 1 / 1;
   overflow: hidden;
 }
 
@@ -524,13 +560,19 @@ h1, h2, h3, h4 {
 
 .contact__media-logo {
   position: absolute;
-  left: 20px;
-  bottom: 20px;
+  left: 24px;
+  bottom: 24px;
   font-family: var(--font-heading);
   font-weight: 700;
   font-size: 30px;
   letter-spacing: 0.03em;
   color: var(--color-white);
+}
+
+.contact__info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .contact__info address {
@@ -558,8 +600,9 @@ h1, h2, h3, h4 {
 
 .footer__top {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
   gap: 20px;
   padding-bottom: 24px;
 }
@@ -581,8 +624,9 @@ h1, h2, h3, h4 {
 
 .footer__nav ul {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  flex-direction: row;
+  justify-content: center;
+  gap: 32px;
   padding-block: 20px;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
   font-size: 12px;
@@ -596,7 +640,8 @@ h1, h2, h3, h4 {
 
 .footer__bottom {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
   gap: 8px;
   padding-block: 20px;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
@@ -606,116 +651,4 @@ h1, h2, h3, h4 {
 
 .footer__bottom a:hover {
   color: var(--color-red);
-}
-
-/* =========================================================
-   Responsive — tablet & up
-   ========================================================= */
-@media (min-width: 768px) {
-  :root {
-    --section-pad-y: 80px;
-  }
-
-  .hero__grid {
-    flex-direction: row;
-    align-items: center;
-  }
-
-  .hero__content,
-  .hero__media {
-    flex: 1;
-  }
-
-  .directions__grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .priorities__grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .approach__steps {
-    grid-template-columns: repeat(4, 1fr);
-  }
-
-  .contact__grid {
-    flex-direction: row;
-    align-items: stretch;
-  }
-
-  .contact__media,
-  .contact__info {
-    flex: 1;
-  }
-
-  .contact__media {
-    aspect-ratio: auto;
-  }
-
-  .footer__top {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .footer__nav ul {
-    flex-direction: row;
-    justify-content: center;
-    gap: 32px;
-  }
-
-  .footer__bottom {
-    flex-direction: row;
-    justify-content: space-between;
-  }
-}
-
-/* =========================================================
-   Responsive — desktop & up
-   ========================================================= */
-@media (min-width: 1024px) {
-  .header-topbar__inner {
-    padding-block: 14px;
-  }
-
-  .main-nav__list {
-    font-size: 12px;
-  }
-
-  .logo__name {
-    font-size: 40px;
-  }
-
-  .hero__text {
-    font-size: 32px;
-  }
-}
-
-/* =========================================================
-   Responsive — mobile nav collapse
-   ========================================================= */
-@media (max-width: 599px) {
-  .nav-toggle {
-    display: flex;
-  }
-
-  .main-nav {
-    display: none;
-    width: 100%;
-    order: 3;
-  }
-
-  .header-topbar__inner {
-    flex-wrap: wrap;
-  }
-
-  .header-topbar__inner.is-open .main-nav {
-    display: block;
-  }
-
-  .main-nav__list {
-    flex-direction: column;
-    gap: 12px;
-    padding-top: 12px;
-  }
 }
