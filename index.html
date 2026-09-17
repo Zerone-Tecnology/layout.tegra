@@ -6,8 +6,8 @@
   <title>TEGRA — Инфраструктурные проекты связи, безопасности и энергоснабжения</title>
   <meta name="description" content="TEGRA — сложные инфраструктурные проекты в области связи, безопасности и энергоснабжения для крупнейших промышленных предприятий, государственных и финансовых институтов.">
   <link rel="icon" href="img/icons/icon-diamond.svg" type="image/svg+xml">
-  <link rel="preload" href="fonts/oswald-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="fonts/roboto-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/Actay-Regular.otf" as="font" type="font/otf" crossorigin>
+  <link rel="preload" href="fonts/ActayCondensed-Thin.otf" as="font" type="font/otf" crossorigin>
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/fonts.css">
   <link rel="stylesheet" href="css/style.css">
@@ -15,77 +15,78 @@
 <body>
   <a class="skip-link" href="#main">Перейти к содержимому</a>
 
-  <header class="site-header">
-    <div class="header-topbar">
-      <div class="container header-topbar__inner">
-        <nav class="main-nav" aria-label="Основная навигация">
-          <ul class="main-nav__list">
-            <li><a href="#directions">Направления деятельности</a></li>
-            <li><a href="#projects">Проекты</a></li>
-            <li><a href="#priorities">Приоритеты</a></li>
-            <li><a href="#approach">Подход</a></li>
-            <li><a href="#contact">Контакты</a></li>
-          </ul>
-        </nav>
-        <div class="lang-switch">
-          <button type="button" class="lang-switch__toggle" aria-haspopup="listbox" aria-expanded="false">
-            <span>RU</span>
+  <header class="site-header" lang="en">
+    <div class="container header-inner">
+      <a href="#top" class="logo">
+        <span class="logo__name">TEGRA</span>
+        <span class="logo__tagline">Kazakhstan</span>
+      </a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <ul class="main-nav__list">
+          <li><a href="#directions">Solutions</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#priorities">Priorities</a></li>
+          <li><a href="#approach">Approach</a></li>
+          <li><a href="#contact">Contacts</a></li>
+        </ul>
+      </nav>
+      <ul class="lang-switch">
+        <li>
+          <button type="button" class="lang-switch__active" aria-expanded="true">
+            <span>ENG</span>
             <img src="img/icons/icon-chevron.svg" alt="" class="lang-switch__icon" aria-hidden="true">
           </button>
-          <ul class="lang-switch__menu" hidden>
-            <li><button type="button" data-lang="ru">RU</button></li>
-            <li><button type="button" data-lang="kz">KZ</button></li>
-            <li><button type="button" data-lang="en">EN</button></li>
-          </ul>
-        </div>
-        <button type="button" class="nav-toggle" aria-controls="main-nav-mobile" aria-expanded="false">
-          <img src="img/icons/icon-menu.svg" alt="Меню" class="nav-toggle__icon">
-        </button>
-      </div>
-    </div>
-    <div class="header-brand">
-      <div class="container">
-        <a href="#top" class="logo">
-          <span class="logo__name">TEGRA</span>
-          <span class="logo__tagline">инжиниринговая компания</span>
-        </a>
-      </div>
+        </li>
+        <li><button type="button" data-lang="kaz">KAZ</button></li>
+        <li><button type="button" data-lang="ru">RU</button></li>
+      </ul>
     </div>
   </header>
 
   <main id="main">
     <!-- HERO -->
-    <section class="hero" id="top">
+    <section class="hero" id="top" lang="en">
       <div class="container hero__grid">
         <div class="hero__content">
           <p class="hero__text">
-            Сложные инфраструктурные проекты в области связи, безопасности и
-            энергоснабжения для крупнейших промышленных предприятий,
-            государственных и финансовых институтов.
+            Complex communication, security, and power infrastructure
+            projects for major industrial enterprises, government, and
+            financial institutions.
           </p>
         </div>
         <div class="hero__media">
-          <img src="img/hero-photo.svg" alt="Фото будет добавлено" class="photo-placeholder" loading="eager">
+          <img src="img/hero-photo.svg" alt="Photo coming soon" class="photo-placeholder" loading="eager">
         </div>
       </div>
       <div class="container">
         <ul class="stats">
           <li class="stats__item">
             <span class="stats__number">30+</span>
-            <span class="stats__label">лет на рынке</span>
+            <span class="stats__label">
+              <span class="stats__chip">Years of Expertise</span>
+            </span>
           </li>
           <li class="stats__item">
             <span class="stats__number">100+</span>
-            <span class="stats__label">крупных проектов</span>
+            <span class="stats__label stats__label--stacked">
+              <span class="stats__chip">Major</span>
+              <span class="stats__chip">Projects</span>
+            </span>
           </li>
           <li class="stats__item">
             <span class="stats__number">500+</span>
-            <span class="stats__label">сертификатов от ведущих производителей</span>
+            <span class="stats__label stats__label--stacked">
+              <span class="stats__chip">Specialist</span>
+              <span class="stats__chip">Certifications</span>
+            </span>
           </li>
         </ul>
       </div>
-      <div class="brand-divider">
-        <img src="img/icons/icon-diamond.svg" alt="" aria-hidden="true">
+      <div class="container hero__bottom">
+        <span class="hero__rule"></span>
+        <span class="hero__mark" aria-hidden="true">
+          <img src="img/icons/icon-mark.svg" alt="">
+        </span>
       </div>
     </section>
 
