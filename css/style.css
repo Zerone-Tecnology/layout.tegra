@@ -66,7 +66,9 @@ h1, h2, h3, h4 {
    Full-screen block sections
    Every major block occupies at least one full viewport height,
    with its content vertically centered and the divider button
-   pinned to the bottom edge as a scroll cue.
+   pinned to the bottom edge as a scroll cue. Scroll-snap makes
+   each block settle flush against the sticky header as the user
+   scrolls, so every screen shows exactly one full block.
    ========================================================= */
 .hero,
 .directions,
@@ -79,6 +81,9 @@ h1, h2, h3, h4 {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  scroll-margin-top: var(--header-height);
   padding-block: 64px;
 }
 
