@@ -14,9 +14,9 @@
   --color-border: #d8d6d3;
   --color-placeholder: #cfcfcd;
 
-  --font-display: "Actay", Arial, Helvetica, sans-serif;
+  --font-display: "Actay Wide", Arial, Helvetica, sans-serif;
   --font-condensed: "Actay Condensed", Arial Narrow, sans-serif;
-  --font-body: "Actay", Arial, Helvetica, sans-serif;
+  --font-body: "Gilroy", Arial, Helvetica, sans-serif;
 
   --container-width: 1180px;
   --container-pad: 40px;
@@ -155,22 +155,20 @@ h1, h2, h3, h4 {
   justify-content: center;
   flex-shrink: 0;
   width: 56px;
-  height: 44px;
-  border-radius: 8px;
-  border: 2px solid var(--color-black);
-  background: var(--color-white);
-  overflow: visible;
+  height: 42px;
   cursor: default;
 }
 
 .screen-end__mark img {
-  width: 68px;
-  height: auto;
+  width: 100%;
+  height: 100%;
 }
 
 /* Interactive variant: a back-to-top control (red border, chevron) */
 .screen-end__mark--active {
-  border-color: var(--color-red);
+  border-radius: 8px;
+  border: 2px solid var(--color-red);
+  background: var(--color-white);
   cursor: pointer;
 }
 
@@ -219,7 +217,7 @@ h1, h2, h3, h4 {
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 30px;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.01em;
   color: var(--color-red);
 }
 
@@ -232,10 +230,10 @@ h1, h2, h3, h4 {
 
 .logo__tagline {
   margin-top: 6px;
-  font-family: var(--font-condensed);
-  font-weight: 100;
+  font-family: var(--font-body);
+  font-weight: 700;
   font-size: 10px;
-  letter-spacing: 0.35em;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
   color: var(--color-black);
 }
