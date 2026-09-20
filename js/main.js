@@ -46,7 +46,7 @@
   }
 
   // Section divider buttons scroll to their target (default: top)
-  document.querySelectorAll(".section-divider").forEach(function (button) {
+  document.querySelectorAll(".section-divider, .js-scroll-top").forEach(function (button) {
     button.addEventListener("click", function () {
       var targetSelector = button.getAttribute("data-target") || "#top";
       var target = document.querySelector(targetSelector);
