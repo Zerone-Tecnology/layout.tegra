@@ -29,16 +29,16 @@
     });
 
     document.addEventListener("click", function (event) {
-      if (!langMenu.contains(event.target) && event.target !== langToggle) {
+      if (!langMenu.contains(event.target) && !langToggle.contains(event.target)) {
         langMenu.setAttribute("hidden", "");
         langToggle.setAttribute("aria-expanded", "false");
       }
     });
 
+    // Language selection itself (applying translations) is handled by
+    // js/i18n.js; here we just close the dropdown after a choice is made.
     langMenu.querySelectorAll("button[data-lang]").forEach(function (button) {
       button.addEventListener("click", function () {
-        var lang = button.getAttribute("data-lang");
-        langToggle.querySelector("span").textContent = lang.toUpperCase();
         langMenu.setAttribute("hidden", "");
         langToggle.setAttribute("aria-expanded", "false");
       });
@@ -65,4 +65,41 @@
       }
     });
   });
+
+  // Hero parallax: as the hero scrolls past the top of the viewport,
+  // the text and photo drift upward at different speeds for depth.
+  var hero = document.querySelector(".hero");
+  var heroContent = document.querySelector(".hero__content");
+  var heroMedia = document.querySelector(".hero__media img");
+  var prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  if (hero && heroContent && heroMedia && !prefersReducedMotion) {
+    var ticking = false;
+
+    var updateParallax = function () {
+      var rect = hero.getBoundingClientRect();
+      var progress = -rect.top / rect.height;
+      progress = Math.min(Math.max(progress, 0), 1);
+
+      heroContent.style.transform = "translateY(" + progress * -60 + "px)";
+      heroContent.style.opacity = String(1 - progress * 0.7);
+      heroMedia.style.transform =
+        "translateY(" + progress * -30 + "px) scale(" + (1 + progress * 0.06) + ")";
+
+      ticking = false;
+    };
+
+    var onScroll = function () {
+      if (!ticking) {
+        window.requestAnimationFrame(updateParallax);
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    updateParallax();
+  }
 })();

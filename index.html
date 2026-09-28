@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TEGRA — Инфраструктурные проекты связи, безопасности и энергоснабжения</title>
-  <meta name="description" content="TEGRA — сложные инфраструктурные проекты в области связи, безопасности и энергоснабжения для крупнейших промышленных предприятий, государственных и финансовых институтов.">
+  <title>TEGRA — Communication, Security &amp; Power Infrastructure Projects</title>
+  <meta name="description" content="TEGRA — complex communication, security, and power infrastructure projects for major industrial enterprises, government, and financial institutions.">
   <link rel="icon" href="img/favicon/favicon_io/favicon.ico" sizes="any">
   <link rel="icon" href="img/favicon/Favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="img/favicon/favicon_io/apple-touch-icon.png">
@@ -16,46 +16,43 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <a class="skip-link" href="#main">Перейти к содержимому</a>
+  <a class="skip-link" href="#main" data-i18n="a11y.skip_link">Перейти к содержимому</a>
 
-  <header class="site-header" lang="en">
+  <header class="site-header">
     <div class="container header-inner">
       <a href="#top" class="logo">
         <img src="img/logo_header.svg" alt="TEGRA Kazakhstan" class="logo__image">
       </a>
-      <nav class="main-nav" aria-label="Main navigation">
+      <nav class="main-nav" aria-label="Main navigation" data-i18n-aria="a11y.main_nav">
         <ul class="main-nav__list">
-          <li><a href="#directions">Solutions</a></li>
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#priorities">Priorities</a></li>
-          <li><a href="#approach">Approach</a></li>
-          <li><a href="#contact">Contacts</a></li>
+          <li><a href="#directions" data-i18n="nav.solutions">Solutions</a></li>
+          <li><a href="#projects" data-i18n="nav.projects">Projects</a></li>
+          <li><a href="#priorities" data-i18n="nav.priorities">Priorities</a></li>
+          <li><a href="#approach" data-i18n="nav.approach">Approach</a></li>
+          <li><a href="#contact" data-i18n="nav.contacts">Contacts</a></li>
         </ul>
       </nav>
-      <ul class="lang-switch">
-        <li>
-          <button type="button" class="lang-switch__active" aria-expanded="true">
-            <span>ENG</span>
-            <img src="img/icons/icon-chevron.svg" alt="" class="lang-switch__icon" aria-hidden="true">
-          </button>
-        </li>
-        <li><button type="button" data-lang="kaz">KAZ</button></li>
-        <li><button type="button" data-lang="ru">RU</button></li>
-      </ul>
+      <div class="lang-switch">
+        <button type="button" class="lang-switch__toggle" aria-haspopup="listbox" aria-expanded="false">
+          <span class="lang-switch__current">ENG</span>
+          <img src="img/icons/icon-chevron.svg" alt="" class="lang-switch__icon" aria-hidden="true">
+        </button>
+        <ul class="lang-switch__menu" role="listbox" hidden>
+          <li role="option"><button type="button" data-lang="en" class="is-active">ENG</button></li>
+          <li role="option"><button type="button" data-lang="kz">KAZ</button></li>
+          <li role="option"><button type="button" data-lang="ru">RU</button></li>
+        </ul>
+      </div>
     </div>
   </header>
 
   <main id="main">
     <!-- HERO -->
-    <section class="hero" id="top" lang="en">
+    <section class="hero" id="top">
       <div class="hero__inner">
         <div class="container hero__grid">
           <div class="hero__content">
-            <p class="hero__text">
-              Complex communication, security, and power infrastructure
-              projects for major industrial enterprises, government, and
-              financial institutions.
-            </p>
+            <p class="hero__text" data-i18n="hero.text">Complex communication, security, and power infrastructure projects for major industrial enterprises, government, and financial institutions.</p>
           </div>
           <div class="hero__media">
             <img src="img/intro.png" alt="TEGRA communications equipment on-site" loading="eager">
@@ -66,21 +63,21 @@
             <li class="stats__item">
               <span class="stats__number">30+</span>
               <span class="stats__label">
-                <span class="stats__chip">Years of Expertise</span>
+                <span class="stats__chip" data-i18n="hero.stat1">Years of Expertise</span>
               </span>
             </li>
             <li class="stats__item">
               <span class="stats__number">100+</span>
               <span class="stats__label stats__label--stacked">
-                <span class="stats__chip">Major</span>
-                <span class="stats__chip">Projects</span>
+                <span class="stats__chip" data-i18n="hero.stat2a">Major</span>
+                <span class="stats__chip" data-i18n="hero.stat2b">Projects</span>
               </span>
             </li>
             <li class="stats__item">
               <span class="stats__number">500+</span>
               <span class="stats__label stats__label--stacked">
-                <span class="stats__chip">Specialist</span>
-                <span class="stats__chip">Certifications</span>
+                <span class="stats__chip" data-i18n="hero.stat3a">Specialist</span>
+                <span class="stats__chip" data-i18n="hero.stat3b">Certifications</span>
               </span>
             </li>
           </ul>
@@ -95,24 +92,24 @@
     </section>
 
     <!-- DIRECTIONS -->
-    <section class="directions" id="directions" lang="en">
+    <section class="directions" id="directions">
       <div class="directions__inner">
         <div class="container chip-title-wrap">
-          <h2 class="chip-title">We Create</h2>
+          <h2 class="chip-title" data-i18n="directions.title">We Create</h2>
         </div>
         <div class="container">
           <ul class="directions__grid">
             <li class="direction-card">
               <img src="img/icons/icon_radio.svg" alt="" class="direction-card__icon" aria-hidden="true">
-              <p>Advanced Radio Communication Systems of any complexity</p>
+              <p data-i18n="directions.card1">Advanced Radio Communication Systems of any complexity</p>
             </li>
             <li class="direction-card">
               <img src="img/icons/icon_video.svg" alt="" class="direction-card__icon" aria-hidden="true">
-              <p>Integrated Video Surveillance and Security Networks</p>
+              <p data-i18n="directions.card2">Integrated Video Surveillance and Security Networks</p>
             </li>
             <li class="direction-card">
               <img src="img/icons/icon_energy.svg" alt="" class="direction-card__icon" aria-hidden="true">
-              <p>Automation, Power Supply, and Life-Support Systems</p>
+              <p data-i18n="directions.card3">Automation, Power Supply, and Life-Support Systems</p>
             </li>
           </ul>
         </div>
@@ -128,16 +125,16 @@
     <!-- PROJECTS -->
     <section class="projects" id="projects">
 
-      <article class="project-block project-block--featured" lang="en">
+      <article class="project-block project-block--featured">
         <div class="project-block__inner">
           <div class="container project-block__layout">
             <div class="project-block__text">
-              <p class="chip-title">Featured Projects</p>
-              <p class="chip-title chip-title--black">Radio Communication</p>
+              <p class="chip-title" data-i18n="projects.featured">Featured Projects</p>
+              <p class="chip-title chip-title--black" data-i18n="projects.radio_title">Radio Communication</p>
               <ul class="project-block__list project-block__list--overlap">
-                <li><span class="bullet-mark" aria-hidden="true"></span><span class="bullet-text">µLTE Network at the Tengiz oil field (Nokia-based)</span></li>
-                <li><span class="bullet-mark" aria-hidden="true"></span><span class="bullet-text">TETRA Networks at the Tengiz, Kashagan, and Karachaganak fields (Motorola-based)</span></li>
-                <li><span class="bullet-mark" aria-hidden="true"></span><span class="bullet-text">MotoTRBO Network along the Karachaganak – Aksai – Uralsk – Atyrau pipeline (Motorola-based)</span></li>
+                <li><span class="bullet-mark" aria-hidden="true"></span><span class="bullet-text" data-i18n="projects.radio_b1">µLTE Network at the Tengiz oil field (Nokia-based)</span></li>
+                <li><span class="bullet-mark" aria-hidden="true"></span><span class="bullet-text" data-i18n="projects.radio_b2">TETRA Networks at the Tengiz, Kashagan, and Karachaganak fields (Motorola-based)</span></li>
+                <li><span class="bullet-mark" aria-hidden="true"></span><span class="bullet-text" data-i18n="projects.radio_b3">MotoTRBO Network along the Karachaganak – Aksai – Uralsk – Atyrau pipeline (Motorola-based)</span></li>
               </ul>
             </div>
             <div class="project-block__gallery project-block__gallery--split">
@@ -148,22 +145,22 @@
           </div>
           <div class="container screen-end">
             <span class="screen-end__rule"></span>
-            <button type="button" class="screen-end__mark screen-end__mark--active js-scroll-top" data-target="#top" aria-label="Back to top">
+            <button type="button" class="screen-end__mark screen-end__mark--active js-scroll-top" data-target="#top" aria-label="Back to top" data-i18n-aria="a11y.back_to_top">
               <img src="img/icons/icon-chevron.svg" alt="" aria-hidden="true">
             </button>
           </div>
         </div>
       </article>
 
-      <article class="project-block project-block--featured" lang="en">
+      <article class="project-block project-block--featured">
         <div class="project-block__inner">
           <div class="container project-block__layout">
             <div class="project-block__text">
-              <p class="chip-title">Featured Projects</p>
-              <p class="chip-title chip-title--black">Video Surveillance</p>
+              <p class="chip-title" data-i18n="projects.featured">Featured Projects</p>
+              <p class="chip-title chip-title--black" data-i18n="projects.video_title">Video Surveillance</p>
               <ul class="project-block__list project-block__list--overlap">
-                <li><span class="bullet-mark" aria-hidden="true"></span><span class="bullet-text">3,000+ Cameras, including explosion-proof models – Tengiz, Karachaganak, Prorva, and Atyrau sites</span></li>
-                <li><span class="bullet-mark" aria-hidden="true"></span><span class="bullet-text">Access Control Systems &amp; Analytics – airports, oil depots, and terminals in West Kazakhstan</span></li>
+                <li><span class="bullet-mark" aria-hidden="true"></span><span class="bullet-text" data-i18n="projects.video_b1">3,000+ Cameras, including explosion-proof models – Tengiz, Karachaganak, Prorva, and Atyrau sites</span></li>
+                <li><span class="bullet-mark" aria-hidden="true"></span><span class="bullet-text" data-i18n="projects.video_b2">Access Control Systems &amp; Analytics – airports, oil depots, and terminals in West Kazakhstan</span></li>
               </ul>
             </div>
             <div class="project-block__gallery project-block__gallery--split">
@@ -174,24 +171,24 @@
           </div>
           <div class="container screen-end">
             <span class="screen-end__rule"></span>
-            <button type="button" class="screen-end__mark screen-end__mark--active js-scroll-top" data-target="#top" aria-label="Back to top">
+            <button type="button" class="screen-end__mark screen-end__mark--active js-scroll-top" data-target="#top" aria-label="Back to top" data-i18n-aria="a11y.back_to_top">
               <img src="img/icons/icon-chevron.svg" alt="" aria-hidden="true">
             </button>
           </div>
         </div>
       </article>
 
-      <article class="project-block project-block--featured" lang="en">
+      <article class="project-block project-block--featured">
         <div class="project-block__inner">
           <div class="container project-block__layout">
             <div class="project-block__text">
-              <p class="chip-title">Featured Projects</p>
-              <p class="chip-title chip-title--black">Automation, Power &amp;</p>
-              <p class="chip-title chip-title--black">Life-Support</p>
+              <p class="chip-title" data-i18n="projects.featured">Featured Projects</p>
+              <p class="chip-title chip-title--black" data-i18n="projects.auto_title1">Automation, Power &amp;</p>
+              <p class="chip-title chip-title--black" data-i18n="projects.auto_title2">Life-Support</p>
               <ul class="project-block__list project-block__list--overlap">
-                <li><span class="bullet-mark" aria-hidden="true"></span><span class="bullet-text">50+ Communication Nodes – West Kazakhstan and Atyrau regions</span></li>
-                <li><span class="bullet-mark" aria-hidden="true"></span><span class="bullet-text">Hybrid Systems (Diesel + Solar) – from Tengiz to Urikhtau</span></li>
-                <li><span class="bullet-mark" aria-hidden="true"></span><span class="bullet-text">Fully Automated Life-Support Systems for remote and hard-to-reach communication nodes from Karachaganak to Atyrau</span></li>
+                <li><span class="bullet-mark" aria-hidden="true"></span><span class="bullet-text" data-i18n="projects.auto_b1">50+ Communication Nodes – West Kazakhstan and Atyrau regions</span></li>
+                <li><span class="bullet-mark" aria-hidden="true"></span><span class="bullet-text" data-i18n="projects.auto_b2">Hybrid Systems (Diesel + Solar) – from Tengiz to Urikhtau</span></li>
+                <li><span class="bullet-mark" aria-hidden="true"></span><span class="bullet-text" data-i18n="projects.auto_b3">Fully Automated Life-Support Systems for remote and hard-to-reach communication nodes from Karachaganak to Atyrau</span></li>
               </ul>
             </div>
             <div class="project-block__gallery project-block__gallery--split project-block__gallery--reverse">
@@ -202,7 +199,7 @@
           </div>
           <div class="container screen-end">
             <span class="screen-end__rule"></span>
-            <button type="button" class="screen-end__mark screen-end__mark--active js-scroll-top" data-target="#top" aria-label="Back to top">
+            <button type="button" class="screen-end__mark screen-end__mark--active js-scroll-top" data-target="#top" aria-label="Back to top" data-i18n-aria="a11y.back_to_top">
               <img src="img/icons/icon-chevron.svg" alt="" aria-hidden="true">
             </button>
           </div>
@@ -212,42 +209,42 @@
     </section>
 
     <!-- PRIORITIES -->
-    <section class="priorities" id="priorities" lang="en">
+    <section class="priorities" id="priorities">
       <div class="priorities__inner">
         <div class="container chip-title-wrap">
-          <h2 class="chip-title">Our Priorities</h2>
+          <h2 class="chip-title" data-i18n="priorities.title">Our Priorities</h2>
         </div>
         <div class="container">
           <ul class="priorities__grid">
             <li class="priority-card">
-              <h3 class="chip-title chip-title--black chip-title--sm">Creative Fulfillment</h3>
-              <p>Our goal is the satisfaction found in professional creation—delivering value that enriches our team and our Clients alike</p>
+              <h3 class="chip-title chip-title--black chip-title--sm" data-i18n="priorities.c1_t">Creative Fulfillment</h3>
+              <p data-i18n="priorities.c1_d">Our goal is the satisfaction found in professional creation—delivering value that enriches our team and our Clients alike</p>
             </li>
             <li class="priority-card">
-              <h3 class="chip-title chip-title--black chip-title--sm">Mutual Benefit</h3>
-              <p>We believe the true purpose of a transaction is to create a surplus of value for its participants</p>
+              <h3 class="chip-title chip-title--black chip-title--sm" data-i18n="priorities.c2_t">Mutual Benefit</h3>
+              <p data-i18n="priorities.c2_d">We believe the true purpose of a transaction is to create a surplus of value for its participants</p>
             </li>
             <li class="priority-card">
-              <h3 class="chip-title chip-title--black chip-title--sm">Integrity</h3>
-              <p>Integrity and transparency ensure absolute clarity in communication with our Clients and within the Company</p>
+              <h3 class="chip-title chip-title--black chip-title--sm" data-i18n="priorities.c3_t">Integrity</h3>
+              <p data-i18n="priorities.c3_d">Integrity and transparency ensure absolute clarity in communication with our Clients and within the Company</p>
             </li>
             <li class="priority-card">
-              <h3 class="chip-title chip-title--black chip-title--sm">Expertise</h3>
-              <p>Constant learning and professional training are the foundation of our success and our versatility</p>
+              <h3 class="chip-title chip-title--black chip-title--sm" data-i18n="priorities.c4_t">Expertise</h3>
+              <p data-i18n="priorities.c4_d">Constant learning and professional training are the foundation of our success and our versatility</p>
             </li>
             <li class="priority-card">
-              <h3 class="chip-title chip-title--black chip-title--sm">Innovation</h3>
-              <p>We thrive at the leading edge of technology, motivated by the pursuit of new ideas and challenging frontiers</p>
+              <h3 class="chip-title chip-title--black chip-title--sm" data-i18n="priorities.c5_t">Innovation</h3>
+              <p data-i18n="priorities.c5_d">We thrive at the leading edge of technology, motivated by the pursuit of new ideas and challenging frontiers</p>
             </li>
             <li class="priority-card">
-              <h3 class="chip-title chip-title--black chip-title--sm">Quality</h3>
-              <p>Superior quality is the natural result of our systemic approach and meticulous attention to detail</p>
+              <h3 class="chip-title chip-title--black chip-title--sm" data-i18n="priorities.c6_t">Quality</h3>
+              <p data-i18n="priorities.c6_d">Superior quality is the natural result of our systemic approach and meticulous attention to detail</p>
             </li>
           </ul>
         </div>
         <div class="container screen-end">
           <span class="screen-end__rule"></span>
-          <button type="button" class="screen-end__mark screen-end__mark--active js-scroll-top" data-target="#top" aria-label="Back to top">
+          <button type="button" class="screen-end__mark screen-end__mark--active js-scroll-top" data-target="#top" aria-label="Back to top" data-i18n-aria="a11y.back_to_top">
             <img src="img/icons/icon-chevron.svg" alt="" aria-hidden="true">
           </button>
         </div>
@@ -255,42 +252,42 @@
     </section>
 
     <!-- APPROACH -->
-    <section class="approach" id="approach" lang="en">
+    <section class="approach" id="approach">
       <div class="approach__inner">
         <div class="container chip-title-wrap">
-          <h2 class="chip-title">Our Approach</h2>
+          <h2 class="chip-title" data-i18n="approach.title">Our Approach</h2>
         </div>
         <div class="container">
           <ol class="approach__steps">
             <li class="approach-step approach-step--1">
               <span class="approach-step__number">1</span>
               <span class="approach-step__rule"></span>
-              <h3 class="chip-title chip-title--black chip-title--sm">Defining the Goal</h3>
-              <p>We begin by getting to the heart of the matter: working closely with our Clients to truly understand the challenge and the ultimate vision they wish to achieve</p>
+              <h3 class="chip-title chip-title--black chip-title--sm" data-i18n="approach.s1_t">Defining the Goal</h3>
+              <p data-i18n="approach.s1_d">We begin by getting to the heart of the matter: working closely with our Clients to truly understand the challenge and the ultimate vision they wish to achieve</p>
             </li>
             <li class="approach-step approach-step--2">
               <span class="approach-step__number">2</span>
               <span class="approach-step__rule"></span>
-              <h3 class="chip-title chip-title--black chip-title--sm">Exploring the Possibilities</h3>
-              <p>We carefully consider different options, choosing the optimal one in terms of efficiency, safety, and cost</p>
+              <h3 class="chip-title chip-title--black chip-title--sm" data-i18n="approach.s2_t">Exploring the Possibilities</h3>
+              <p data-i18n="approach.s2_d">We carefully consider different options, choosing the optimal one in terms of efficiency, safety, and cost</p>
             </li>
             <li class="approach-step">
               <span class="approach-step__number">3</span>
               <span class="approach-step__rule"></span>
-              <h3 class="chip-title chip-title--black chip-title--sm">Implementation</h3>
-              <p>We strictly follow the plan, ensuring superior quality at every stage – from design to launch</p>
+              <h3 class="chip-title chip-title--black chip-title--sm" data-i18n="approach.s3_t">Implementation</h3>
+              <p data-i18n="approach.s3_d">We strictly follow the plan, ensuring superior quality at every stage – from design to launch</p>
             </li>
             <li class="approach-step">
               <span class="approach-step__number">4</span>
               <span class="approach-step__rule"></span>
-              <h3 class="chip-title chip-title--black chip-title--sm">Support</h3>
-              <p>We remain involved with the project even after implementation – adapting it to changes, upgrading, and expanding it as needed</p>
+              <h3 class="chip-title chip-title--black chip-title--sm" data-i18n="approach.s4_t">Support</h3>
+              <p data-i18n="approach.s4_d">We remain involved with the project even after implementation – adapting it to changes, upgrading, and expanding it as needed</p>
             </li>
           </ol>
         </div>
         <div class="container screen-end">
           <span class="screen-end__rule"></span>
-          <button type="button" class="screen-end__mark screen-end__mark--active js-scroll-top" data-target="#top" aria-label="Back to top">
+          <button type="button" class="screen-end__mark screen-end__mark--active js-scroll-top" data-target="#top" aria-label="Back to top" data-i18n-aria="a11y.back_to_top">
             <img src="img/icons/icon-chevron.svg" alt="" aria-hidden="true">
           </button>
         </div>
@@ -298,16 +295,16 @@
     </section>
 
     <!-- CONTACT -->
-    <section class="contact" id="contact" lang="en">
+    <section class="contact" id="contact">
       <div class="contact__inner">
         <div class="container contact__grid">
           <div class="contact__media">
             <img src="img/contacts.png" alt="TEGRA">
           </div>
           <div class="contact__info">
-            <p class="chip-title">Contact Us</p>
+            <p class="chip-title" data-i18n="contact.title">Contact Us</p>
             <address>
-              <p>20, Akhmedyarov st., Almaty,<br>050059, Republic of Kazakhstan</p>
+              <p data-i18n="contact.address">20, Akhmedyarov st., Almaty,<br>050059, Republic of Kazakhstan</p>
               <p><a href="tel:+77272582626">+ 7 727 258 26 26</a></p>
               <p><a href="mailto:tegra@tegra.kz">tegra@tegra.kz</a></p>
             </address>
@@ -315,7 +312,7 @@
         </div>
         <div class="container screen-end">
           <span class="screen-end__rule"></span>
-          <button type="button" class="screen-end__mark screen-end__mark--active js-scroll-top" data-target="#top" aria-label="Back to top">
+          <button type="button" class="screen-end__mark screen-end__mark--active js-scroll-top" data-target="#top" aria-label="Back to top" data-i18n-aria="a11y.back_to_top">
             <img src="img/icons/icon-chevron.svg" alt="" aria-hidden="true">
           </button>
         </div>
@@ -323,7 +320,7 @@
     </section>
   </main>
 
-  <footer class="site-footer" lang="en">
+  <footer class="site-footer">
     <div class="container footer__top">
       <a href="#top" class="logo logo--light">
         <span class="logo__name">TEGRA</span>
@@ -336,22 +333,23 @@
       </a>
     </div>
     <div class="container">
-      <nav class="footer__nav" aria-label="Footer navigation">
+      <nav class="footer__nav" aria-label="Footer navigation" data-i18n-aria="a11y.footer_nav">
         <ul>
-          <li><a href="#directions">Solutions</a></li>
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#priorities">Priorities</a></li>
-          <li><a href="#approach">Approach</a></li>
-          <li><a href="#contact">Contacts</a></li>
+          <li><a href="#directions" data-i18n="nav.solutions">Solutions</a></li>
+          <li><a href="#projects" data-i18n="nav.projects">Projects</a></li>
+          <li><a href="#priorities" data-i18n="nav.priorities">Priorities</a></li>
+          <li><a href="#approach" data-i18n="nav.approach">Approach</a></li>
+          <li><a href="#contact" data-i18n="nav.contacts">Contacts</a></li>
         </ul>
       </nav>
     </div>
     <div class="container footer__bottom">
-      <p>© 2026, TEGRA Kazakhstan. All rights reserved</p>
-      <a href="#top">Privacy Policy</a>
+      <p data-i18n="footer.copyright">© 2026, TEGRA Kazakhstan. All rights reserved</p>
+      <a href="#top" data-i18n="footer.privacy">Privacy Policy</a>
     </div>
   </footer>
 
+  <script src="js/i18n.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
