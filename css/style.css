@@ -391,13 +391,14 @@ h1, h2, h3, h4 {
 
 .stats {
   display: flex;
-  gap: 80px;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .stats__item {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .stats__number {
@@ -411,7 +412,7 @@ h1, h2, h3, h4 {
 .stats__label {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   margin-top: 16px;
 }
 
@@ -764,8 +765,7 @@ h1, h2, h3, h4 {
 
 .approach-step {
   --step-color: var(--color-gray-light);
-  --step-chip-bg: var(--color-placeholder);
-  --step-text-color: var(--color-gray);
+  --step-chip-bg: var(--color-gray-light);
 }
 
 .approach-step__number {
@@ -775,6 +775,7 @@ h1, h2, h3, h4 {
   font-size: 46px;
   line-height: 1;
   color: var(--step-color);
+  transition: color 0.25s ease;
 }
 
 .approach-step__rule {
@@ -783,30 +784,29 @@ h1, h2, h3, h4 {
   margin-top: 10px;
   margin-bottom: 20px;
   background: var(--step-color);
+  transition: background-color 0.25s ease;
 }
 
 .approach-step .chip-title {
   background: var(--step-chip-bg);
   margin-bottom: 14px;
+  transition: background-color 0.25s ease;
 }
 
 .approach-step p {
   font-family: var(--font-body);
   font-size: 14px;
   line-height: 1.6;
-  color: var(--step-text-color);
+  color: var(--color-gray);
 }
 
-.approach-step--1 {
-  --step-color: var(--color-black);
-  --step-chip-bg: var(--color-black);
-  --step-text-color: var(--color-black);
-}
-
-.approach-step--2 {
+/* Steps sit gray by default; hovering (or focusing into) a step highlights
+   it — number and rule turn red, the title chip turns black — instead of
+   one or two steps being permanently singled out. */
+.approach-step:hover,
+.approach-step:focus-within {
   --step-color: var(--color-red);
   --step-chip-bg: var(--color-black);
-  --step-text-color: var(--color-black);
 }
 
 /* =========================================================
@@ -939,4 +939,85 @@ h1, h2, h3, h4 {
 
 .footer__bottom a:hover {
   color: var(--color-red);
+}
+
+/* =========================================================
+   Scroll reveal animations
+   Content in every full-screen block (besides the hero, which
+   has its own parallax) fades/slides into place as that block
+   becomes the active slide. The hidden starting state only
+   applies once js/main.js confirms JS + IntersectionObserver
+   are available and motion isn't reduced (.has-js-reveal on
+   <html>) — without it, everything stays visible by default.
+   ========================================================= */
+html.has-js-reveal .directions .chip-title,
+html.has-js-reveal .priorities .chip-title-wrap .chip-title,
+html.has-js-reveal .approach .chip-title-wrap .chip-title {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+html.has-js-reveal .direction-card,
+html.has-js-reveal .priority-card,
+html.has-js-reveal .approach-step {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+html.has-js-reveal .project-block__text {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+html.has-js-reveal .project-block__gallery {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+html.has-js-reveal .contact__media {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+html.has-js-reveal .contact__info {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+/* Stagger grid items so they don't all land at once */
+.direction-card:nth-child(2) { transition-delay: 0.12s; }
+.direction-card:nth-child(3) { transition-delay: 0.24s; }
+
+.priority-card:nth-child(2) { transition-delay: 0.08s; }
+.priority-card:nth-child(3) { transition-delay: 0.16s; }
+.priority-card:nth-child(4) { transition-delay: 0.24s; }
+.priority-card:nth-child(5) { transition-delay: 0.32s; }
+.priority-card:nth-child(6) { transition-delay: 0.4s; }
+
+.approach-step:nth-child(2) { transition-delay: 0.12s; }
+.approach-step:nth-child(3) { transition-delay: 0.24s; }
+.approach-step:nth-child(4) { transition-delay: 0.36s; }
+
+/* Revealed state, scoped per block so re-entering a block replays it.
+   Needs the same html.has-js-reveal prefix as the hidden-state rules
+   above — otherwise it has lower specificity (one fewer type selector)
+   and the opacity: 0 rule wins even after .in-view is added. */
+html.has-js-reveal .directions.in-view .chip-title,
+html.has-js-reveal .priorities.in-view .chip-title-wrap .chip-title,
+html.has-js-reveal .approach.in-view .chip-title-wrap .chip-title,
+html.has-js-reveal .directions.in-view .direction-card,
+html.has-js-reveal .priorities.in-view .priority-card,
+html.has-js-reveal .approach.in-view .approach-step,
+html.has-js-reveal .project-block.in-view .project-block__text,
+html.has-js-reveal .project-block.in-view .project-block__gallery,
+html.has-js-reveal .contact.in-view .contact__media,
+html.has-js-reveal .contact.in-view .contact__info {
+  opacity: 1;
+  transform: translate(0, 0);
 }
