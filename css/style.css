@@ -2,7 +2,7 @@
    TEGRA — variables
    ========================================================= */
 :root {
-  --color-red: #e2231a;
+  --color-red: #ff0c00;
   --color-red-dark: #b81b14;
   --color-black: #1a1a1a;
   --color-dark: #101010;
@@ -14,9 +14,9 @@
   --color-border: #d8d6d3;
   --color-placeholder: #cfcfcd;
 
-  --font-display: "Actay Wide", Arial, Helvetica, sans-serif;
-  --font-condensed: "Actay Condensed", Arial Narrow, sans-serif;
-  --font-body: "Gilroy", Arial, Helvetica, sans-serif;
+  --font-display: "Actay Wide", sans-serif;
+  --font-condensed: "Actay Condensed", sans-serif;
+  --font-body: "Gilroy", sans-serif;
 
   --container-width: 1180px;
   --container-pad: 40px;
@@ -28,10 +28,15 @@
    Base
    ========================================================= */
 body {
-  font-family: var(--font-body);
+  font-family: var(--font-display);
   color: var(--color-black);
   background: var(--color-white);
   font-size: 15px;
+}
+
+:lang(kk) body,
+html[lang="kk"] body {
+  --font-display: "Gilroy", sans-serif;
 }
 
 h1, h2, h3, h4 {
@@ -145,7 +150,7 @@ h1, h2, h3, h4 {
 
 .screen-end__rule {
   flex: 1;
-  height: 1px;
+  height: 2px;
   background: var(--color-black);
 }
 
@@ -154,8 +159,8 @@ h1, h2, h3, h4 {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 56px;
-  height: 42px;
+  width: 40px;
+  height: 40px;
   cursor: default;
 }
 
@@ -167,7 +172,7 @@ h1, h2, h3, h4 {
 /* Interactive variant: a back-to-top control (red border, chevron) */
 .screen-end__mark--active {
   border-radius: 8px;
-  border: 2px solid var(--color-red);
+  border: 3px solid var(--color-red);
   background: var(--color-white);
   cursor: pointer;
 }
@@ -251,6 +256,9 @@ h1, h2, h3, h4 {
   color: var(--color-white);
 }
 
+.main-nav{
+  margin-left: auto;
+}
 .main-nav__list {
   display: flex;
   flex-wrap: wrap;
@@ -263,6 +271,7 @@ h1, h2, h3, h4 {
 .main-nav__list a {
   display: inline-block;
   padding: 4px 0;
+  font-family: var(--font-display);
 }
 
 .main-nav__list a:hover,
@@ -272,7 +281,7 @@ h1, h2, h3, h4 {
 
 .lang-switch {
   position: relative;
-  font-family: var(--font-body);
+  font-family: var(--font-display);
   flex-shrink: 0;
 }
 
@@ -302,25 +311,25 @@ h1, h2, h3, h4 {
   right: 0;
   top: calc(100% + 10px);
   min-width: 68px;
-  background: var(--color-white);
-  border: 1px solid var(--color-border);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  /* background: var(--color-white);
+  border: 1px solid var(--color-border); */
+  /* box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); */
   z-index: 20;
 }
 
 .lang-switch__menu button {
   display: block;
   width: 100%;
-  padding: 8px 14px;
+  padding: 5px;
   text-align: right;
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.02em;
-  color: var(--color-black);
+  color: var(--color-gray);
 }
 
 .lang-switch__menu button:hover {
-  background: var(--color-bg);
+  /* background: var(--color-bg); */
   color: var(--color-red);
 }
 
@@ -355,17 +364,17 @@ h1, h2, h3, h4 {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  gap: 64px;
+  gap: 50px;
 }
 
 .hero__content {
-  flex: 0 1 540px;
+  flex: 0 1 50%;
   padding-top: 8px;
 }
 
 .hero__media {
   flex: 1;
-  aspect-ratio: 2.2 / 1;
+  aspect-ratio: 1.8 / 1;
   overflow: hidden;
 }
 
@@ -382,7 +391,7 @@ h1, h2, h3, h4 {
 }
 
 .hero__text {
-  font-family: var(--font-body);
+  font-family: var(--font-display);
   font-weight: 400;
   font-size: 28px;
   line-height: 1.35;
@@ -404,7 +413,7 @@ h1, h2, h3, h4 {
 .stats__number {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 68px;
+  font-size: 88px;
   color: var(--color-black);
   line-height: 1;
 }
@@ -413,7 +422,17 @@ h1, h2, h3, h4 {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-top: 16px;
+  margin-left: 40%;
+  width: 100%;
+}
+
+.stats__label--top{
+  margin-left: 0;
+  min-height: 32px;
+}
+
+html:not(:lang(kk)) .stats__label--top {
+  display: none !important;
 }
 
 .stats__label--stacked {
@@ -424,9 +443,9 @@ h1, h2, h3, h4 {
   display: inline-block;
   background: var(--color-red);
   color: var(--color-white);
-  font-family: var(--font-body);
+  font-family: var(--font-display);
   font-weight: 700;
-  font-size: 14px;
+  font-size: 20px;
   line-height: 1.3;
   padding: 3px 10px;
 }
@@ -460,18 +479,29 @@ h1, h2, h3, h4 {
 
 .chip-title {
   display: inline-block;
-  background: var(--color-red);
+  /* background: var(--color-red); */
   color: var(--color-white);
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 28px;
+  font-size: 38px;
   letter-spacing: 0.01em;
   text-transform: uppercase;
-  padding: 14px 28px;
+  padding: 5px 10px 0 0;
+}
+.chip-title > span{
+  background-color: var(--color-red);
+  line-height: 1.7em;
+  padding: 5px;
 }
 
 .chip-title--black {
   background: var(--color-black);
+  font-size: 28px;
+  margin-top: 15px;
+}
+
+.chip-title--black-2 {
+  margin-top: -5px;
 }
 
 .directions__grid {
@@ -486,7 +516,7 @@ h1, h2, h3, h4 {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 24px;
+  gap: 30px;
 }
 
 .direction-card::before {
@@ -495,29 +525,29 @@ h1, h2, h3, h4 {
   top: 0;
   left: 0;
   right: 0;
-  height: 1px;
+  height: 4px;
   background: var(--color-black);
 }
 
 .direction-card:not(:first-child)::after {
   content: "";
   position: absolute;
-  top: 0;
+  top: 15px;
   bottom: 0;
   left: -24px;
-  width: 1px;
+  width: 4px;
   background: var(--color-black);
 }
 
 .direction-card__icon {
-  width: 68px;
+  width: 100px;
   height: auto;
 }
 
 .direction-card p {
-  font-family: var(--font-body);
+  font-family: var(--font-display);
   font-weight: 700;
-  font-size: 20px;
+  font-size: 22px;
   line-height: 1.4;
   color: var(--color-black);
 }
@@ -588,17 +618,25 @@ h1, h2, h3, h4 {
 }
 
 .project-block__gallery {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .project-block__gallery img {
   width: 100%;
-  height: 100%;
-  aspect-ratio: 4 / 3;
+  /* height: 100%; */
   object-fit: cover;
   filter: grayscale(1);
+  padding-bottom: 25px;
+}
+
+.project-block__gallery .col-1{
+  width: 50%;
+  padding-top: 50px;
+  padding-right: 25px;
+}
+.project-block__gallery .col-2{
+  width: 50%;
 }
 
 /* --- Featured layout: two-column text + split photo grid --- */
@@ -623,34 +661,27 @@ h1, h2, h3, h4 {
 
 .project-block__list--overlap li {
   padding-left: 0;
-  font-family: var(--font-body);
+  font-family: var(--font-display);
   font-weight: 700;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1.45;
   color: var(--color-black);
 }
 
 .bullet-mark {
   position: absolute;
-  left: 0;
-  top: -1px;
+  left: -10px;
+  top: -10px;
   width: 22px;
   height: 22px;
   background: var(--color-red);
   z-index: 0;
+  border-radius: 5px;
 }
 
 .bullet-text {
   position: relative;
   z-index: 1;
-}
-
-.project-block__gallery--split {
-  flex: 1;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: 4px;
-  aspect-ratio: 1.25 / 1;
 }
 
 .project-block__photo {
@@ -661,18 +692,11 @@ h1, h2, h3, h4 {
 }
 
 .project-block__photo--1 {
-  grid-column: 1;
-  grid-row: 1;
+  height: 70%;
 }
 
 .project-block__photo--2 {
-  grid-column: 1;
-  grid-row: 2;
-}
-
-.project-block__photo--tall {
-  grid-column: 2;
-  grid-row: 1 / 3;
+  height: 50%;
 }
 
 /* Mirrored layout: tall photo on the left, stacked pair on the right */
@@ -685,12 +709,48 @@ h1, h2, h3, h4 {
   grid-column: 2;
 }
 
+.project-block-2 .project-block__gallery .col-1{
+  padding-top: 0;
+}
+.project-block-2 .project-block__gallery .col-2{
+  padding-top: 50px;
+}
+.project-block-2 .project-block__gallery .project-block__photo--1{
+  height: 50%;
+}
+
+.project-block-3 .project-block__gallery .col-1{
+  padding-top: 0;
+}
+.project-block-3 .project-block__gallery .col-2{
+  padding-top: 50px;
+}
+.project-block-3 .project-block__gallery .project-block__photo--1{
+  height: 60%;
+}
+.project-block-3 .project-block__gallery .project-block__photo--2{
+  height: 50%;
+}
+
+.project-block-3 .chip-title--black{
+  background-color: transparent;
+  margin-bottom: 0;
+  padding: 0;
+}
+
+.project-block-3 .chip-title--black > span{
+  background-color: var(--color-dark);
+  line-height: 1.7em;
+  padding: 5px;
+}
+
 /* =========================================================
    Chip title — small variant (card/step subtitles)
    ========================================================= */
 .chip-title--sm {
-  font-size: 15px;
-  padding: 8px 14px;
+  font-size: 22px;
+  margin-top: 0;
+  text-transform: none;
 }
 
 /* =========================================================
@@ -730,7 +790,7 @@ h1, h2, h3, h4 {
 }
 
 .priority-card p {
-  font-family: var(--font-body);
+  font-family: var(--font-display);
   font-size: 14px;
   line-height: 1.6;
   color: var(--color-black);
@@ -788,13 +848,21 @@ h1, h2, h3, h4 {
 }
 
 .approach-step .chip-title {
-  background: var(--step-chip-bg);
+  background: transparent;
   margin-bottom: 14px;
   transition: background-color 0.25s ease;
+  line-height: 1.5em;
+  padding: 0;
+}
+
+.approach-step .chip-title > span{
+  background-color: var(--step-chip-bg);
+  line-height: 1.7em;
+  padding: 5px;
 }
 
 .approach-step p {
-  font-family: var(--font-body);
+  font-family: var(--font-display);
   font-size: 14px;
   line-height: 1.6;
   color: var(--color-gray);
@@ -865,7 +933,7 @@ h1, h2, h3, h4 {
 }
 
 .contact__info address p {
-  font-family: var(--font-body);
+  font-family: var(--font-display);
   font-weight: 700;
   font-size: 16px;
   line-height: 1.7;
@@ -907,7 +975,7 @@ h1, h2, h3, h4 {
 
 .footer__phone img {
   width: 18px;
-  height: 18px;
+  height: auto;
 }
 
 .footer__nav ul {
@@ -916,10 +984,10 @@ h1, h2, h3, h4 {
   justify-content: flex-start;
   gap: 32px;
   padding-block: 20px;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.03em;
+  font-family: var(--font-display);
 }
 
 .footer__nav a:hover {
@@ -932,7 +1000,6 @@ h1, h2, h3, h4 {
   justify-content: space-between;
   gap: 8px;
   padding-block: 20px;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
   font-size: 11px;
   color: var(--color-gray-light);
 }
@@ -1020,4 +1087,434 @@ html.has-js-reveal .contact.in-view .contact__media,
 html.has-js-reveal .contact.in-view .contact__info {
   opacity: 1;
   transform: translate(0, 0);
+}
+
+
+
+/* =========================================================
+   Mobile Navigation Controls
+   ========================================================= */
+.nav-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 30px;
+  height: 24px;
+  position: relative;
+  z-index: 1001;
+  padding: 0;
+}
+
+.nav-toggle__bar {
+  display: block;
+  width: 100%;
+  height: 3px;
+  background-color: var(--color-black);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  position: absolute;
+  left: 0;
+}
+
+.nav-toggle__bar:nth-child(1) { top: 0; }
+.nav-toggle__bar:nth-child(2) { top: 10px; }
+.nav-toggle__bar:nth-child(3) { top: 20px; }
+
+/* Анимация превращения гамбургера в крестик (X) */
+.site-header.is-menu-open .nav-toggle__bar:nth-child(1) {
+  transform: translateY(10px) rotate(45deg);
+}
+
+.site-header.is-menu-open .nav-toggle__bar:nth-child(2) {
+  opacity: 0;
+}
+
+.site-header.is-menu-open .nav-toggle__bar:nth-child(3) {
+  transform: translateY(-10px) rotate(-45deg);
+}
+
+.mobile-lang-switch {
+  display: none;
+}
+
+.mobile-menu{
+  display: none;
+}
+
+/* =========================================================
+   Mobile Menu Screen Styles (< 1024px)
+   ========================================================= */
+@media screen and (max-width: 1023px) {
+  .nav-toggle {
+    display: block; /* Показываем иконку гамбургера */
+  }
+
+  /* Скрываем десктопный язык в шапке */
+  .header-inner > .lang-switch {
+    display: none;
+  }
+
+  .mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    background: var(--color-white);
+    z-index: 1000;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    padding: 100px 20px 40px;
+  }
+
+  /* Открытое состояние меню */
+  .site-header.is-menu-open .mobile-menu {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .mobile-menu .main-nav {
+    display: block !important;
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .mobile-menu .main-nav__list {
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    text-align: center;
+  }
+
+  .mobile-menu .main-nav__list a {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--color-black);
+    text-transform: none;
+  }
+
+  /* Нижний блок языков в мобильном меню */
+  .mobile-lang-switch {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-top: auto;
+    padding-bottom: 20px;
+  }
+
+  .mobile-lang-switch button {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--color-gray-light);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+  }
+
+  .mobile-lang-switch button.is-active,
+  .mobile-lang-switch button:hover {
+    color: var(--color-red);
+  }
+}
+
+@media screen and (max-width: 900px) {
+  
+}
+
+@media screen and (max-width: 600px) {
+  html, body {
+    scroll-snap-type: none !important;
+  }
+  .hero, .directions, .project-block, .priorities, .approach, .contact{
+    min-height: auto;               /* Отключаем принудительную высоту во весь экран */
+    scroll-snap-align: none;         /* Отключаем прилипание */
+    scroll-snap-stop: normal;       /* Отключаем остановку скролла */
+    padding-block: 44px;
+  }
+  .logo__image{
+    max-width: 70%;
+  }
+  .main-nav{
+    display: none;
+  }
+  .stats__item{
+    margin-bottom: 40px;
+  }
+  .stats__number{
+    font-size: 60px;
+  }
+  .stats__chip{
+    font-size: 16px;
+  }
+
+  .chip-title{
+    font-size: 28px;
+  }
+  .chip-title--black{
+    font-size: 20px;
+  }
+  .hero__grid{
+    flex-wrap: wrap;
+    flex-direction: column;
+  }
+  .hero__text{
+    font-size: 20px;
+  }
+  .stats{
+    flex-wrap: wrap;
+  }
+  .directions__grid{
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .priorities__grid{
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .approach__steps{
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .project-block__layout{
+    flex-direction: column;
+  }
+  .contact__grid{
+    flex-direction: column;
+  }
+  .site-footer .logo{
+    width: 120px;
+  }
+  .footer__nav{
+    display: none;
+  }
+  .project-block__gallery .col-1{
+    padding-right: 15px;
+  }
+  .stats__label{
+    margin-left: 20%;
+  }
+
+  .approach .approach__steps{
+    margin-bottom: 0;
+  }
+
+  .approach-step__number{
+    color: var(--color-red);
+  }
+  .approach-step__rule{
+    background: var(--color-red);
+  }
+  .approach-step .chip-title > span{
+    background-color: var(--color-black);
+  }
+  .approach-step p{
+    color: var(--color-black);
+  }
+  .footer__phone{
+    font-size: 14px;
+  }
+
+  .directions .directions__grid{
+    margin-bottom: 0;
+  }
+  .screen-end{
+    display: none;
+  }
+
+  .approach .chip-title,
+  .directions .chip-title,
+  .priorities .chip-title{
+    text-align: center;
+  }
+  .contact .chip-title{
+    margin: auto;
+    margin-bottom: 32px;
+  }
+  .contact address{
+    width: 100%;
+  }
+  .contact .contact__info{
+    text-align: center;
+  }
+  .footer__bottom{
+    flex-wrap: wrap;
+  }
+  .mobile-menu{
+    display: block;
+  }
+
+  .lang-switch__menu{
+    position: sticky;
+  }
+  
+}
+
+/* =========================================================
+   Approach — Десктоп (сетка в 4 колонки по умолчанию)
+   ========================================================= */
+.approach__steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+}
+
+.approach-step {
+  --step-color: var(--color-gray-light);
+  --step-chip-bg: var(--color-gray-light);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Кнопка-стрелка на десктопе скрыта */
+.approach-step__next {
+  display: none;
+}
+
+/* =========================================================
+   Approach — Мобильные устройства (горизонтальный скролл)
+   ========================================================= */
+@media screen and (max-width: 1023px) {
+  /* 1. Выгоняем скролл-контейнер за пределы паддингов .container */
+  .approach .container:has(.approach__steps) {
+    padding-inline: 0 !important; /* Убираем боковые отступы у контейнера */
+  }
+
+  .approach__steps {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    
+    /* Отступы по бокам, чтобы первая и последняя карточки не липли к краю экрана */
+    padding-inline: 20px; 
+    padding-bottom: 24px;
+
+    /* Скрытие полосы прокрутки */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .approach__steps::-webkit-scrollbar {
+    display: none;
+  }
+
+  .approach-step {
+    /* 2. Настраиваем точную ширину карточки (ширина экрана минус отступы) */
+    flex: 0 0 95vw;
+    max-width: 95vw;
+    
+    /* Выравнивание карточки ровно по центру/краю при прилипании */
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+
+    padding-inline: 20px; /* внутренний отступ текста внутри карточки */
+    
+    position: relative;
+    padding-bottom: 56px;
+  }
+
+  .approach-step__next {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    border: 2px solid var(--color-red);
+    background: var(--color-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .approach-step__next img {
+    width: 16px;
+    height: 16px;
+    transform: rotate(90deg);
+  }
+
+  /* Убираем боковые паддинги у контейнера directions, чтобы слайды проходили от края до края */
+  .directions .container:has(.directions__grid) {
+    padding-inline: 0 !important;
+  }
+
+  .directions__grid {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding-inline: 20px;
+    padding-bottom: 24px;
+    /* Скрываем полосу прокрутки */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-left: 20px;
+  }
+
+  .directions__grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .direction-card {
+    /* Точная ширина карточки за вычетом боковых отступов */
+    flex: 0 0 90vw;
+    max-width: 90vw;
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+    position: relative;
+    padding-bottom: 60px; /* Отступ под стрелку */
+  }
+
+  /* Сбрасываем вертикальные разделительные линии разметки десктопа */
+  .direction-card:not(:first-child)::after {
+    /* display: none; */
+  }
+
+  /* Показываем красную кнопку-стрелку */
+  .direction-card__next {
+    position: absolute;
+    right: 15px;
+    bottom: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    border: 2px solid var(--color-red);
+    background: var(--color-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .direction-card__next img {
+    width: 16px;
+    height: 16px;
+    transform: rotate(90deg); /* Поворот шеврона вправо */
+  }
+
+  .direction-card__next:active {
+    background: var(--color-red);
+  }
+
+  .direction-card__next:active img {
+    filter: brightness(0) invert(1);
+  }
+}
+
+@media screen and (max-width: 400px) {
+
 }

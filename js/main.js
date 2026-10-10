@@ -1,4 +1,78 @@
 (function () {
+
+  // Mobile Nav Toggle
+  var siteHeader = document.querySelector(".site-header");
+  var navToggle = document.querySelector(".nav-toggle");
+  var navLinks = document.querySelectorAll(".mobile-menu .main-nav__list a");
+
+  if (navToggle && siteHeader) {
+    navToggle.addEventListener("click", function () {
+      var isOpen = siteHeader.classList.toggle("is-menu-open");
+      navToggle.setAttribute("aria-expanded", String(isOpen));
+
+      // Блокируем скролл страницы при открытом меню
+      if (isOpen) {
+        document.body.style.overflow = "hidden";
+      } else {
+        document.body.style.overflow = "";
+      }
+    });
+
+    // Закрываем меню при клике на любую ссылку в нем
+    navLinks.forEach(function (link) {
+      link.addEventListener("click", function () {
+        siteHeader.classList.remove("is-menu-open");
+        navToggle.setAttribute("aria-expanded", "false");
+        document.body.style.overflow = "";
+      });
+    });
+  }
+
+  // Horizontal scroll & navigation for Directions (Mobile only)
+  var directionsContainer = document.querySelector(".directions__grid");
+
+  if (directionsContainer) {
+    var dirNextButtons = directionsContainer.querySelectorAll(".direction-card__next");
+
+    dirNextButtons.forEach(function (button, index) {
+      button.addEventListener("click", function () {
+        if (window.innerWidth >= 1024) return;
+
+        var cards = directionsContainer.querySelectorAll(".direction-card");
+        var nextIndex = (index + 1) % cards.length; // Переход к следующей карточке или зацикливание на 1-ю
+
+        cards[nextIndex].scrollIntoView({
+          behavior: "smooth",
+          block: "nearest",
+          inline: "center"
+        });
+      });
+    });
+  }
+
+// Horizontal scroll for Approach (Mobile only)
+  var approachContainer = document.querySelector(".approach__steps");
+
+  if (approachContainer) {
+    var nextButtons = approachContainer.querySelectorAll(".approach-step__next");
+    
+    nextButtons.forEach(function (button, index) {
+      button.addEventListener("click", function () {
+        // Проверяем, что мы на мобильном устройстве
+        if (window.innerWidth >= 1024) return;
+
+        var steps = approachContainer.querySelectorAll(".approach-step");
+        var nextIndex = (index + 1) % steps.length; // Переход к следующему шагу или закольцовывание на 1-й
+        
+        steps[nextIndex].scrollIntoView({
+          behavior: "smooth",
+          block: "nearest",
+          inline: "start"
+        });
+      });
+    });
+  }
+  
   "use strict";
 
   var prefersReducedMotion = window.matchMedia(
@@ -184,7 +258,9 @@
   var siteFooter = document.querySelector(".site-footer");
   var siteHeader = document.querySelector(".site-header");
 
-  if (pages.length && !prefersReducedMotion) {
+  var isDesktop = window.matchMedia("(min-width: 1024px)").matches;
+
+  if (pages.length && !prefersReducedMotion && isDesktop) {
     var pageAnimating = false;
 
     var headerOffset = function () {
@@ -215,7 +291,7 @@
     };
 
     var easeInOutQuad = function (t) {
-      return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+      return t < 0.5 ? 4 * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
     };
 
     var animateTo = function (targetY) {
@@ -277,6 +353,8 @@
     window.addEventListener(
       "wheel",
       function (event) {
+        if (window.innerWidth < 1024) return;
+
         if (!pageAnimating && Math.abs(event.deltaY) < 2) return;
         if (navigate(event.deltaY)) {
           event.preventDefault();

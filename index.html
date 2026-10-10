@@ -38,11 +38,39 @@
           <img src="img/icons/icon-chevron.svg" alt="" class="lang-switch__icon" aria-hidden="true">
         </button>
         <ul class="lang-switch__menu" role="listbox" hidden>
-          <li role="option"><button type="button" data-lang="en" class="is-active">ENG</button></li>
           <li role="option"><button type="button" data-lang="kz">KAZ</button></li>
           <li role="option"><button type="button" data-lang="ru">RU</button></li>
+          <li role="option"><button type="button" data-lang="en">ENG</button></li>
         </ul>
       </div>
+
+      <!-- Кнопка гамбургера / крестика -->
+      <button type="button" class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span class="nav-toggle__bar"></span>
+        <span class="nav-toggle__bar"></span>
+        <span class="nav-toggle__bar"></span>
+      </button>
+
+      <!-- Оболочка мобильного меню -->
+      <div class="mobile-menu">
+        <nav class="main-nav" aria-label="Main navigation">
+          <ul class="main-nav__list">
+            <li><a href="#directions" data-i18n="nav.solutions">Solutions</a></li>
+            <li><a href="#projects" data-i18n="nav.projects">Projects</a></li>
+            <li><a href="#priorities" data-i18n="nav.priorities">Priorities</a></li>
+            <li><a href="#approach" data-i18n="nav.approach">Approach</a></li>
+            <li><a href="#contact" data-i18n="nav.contacts">Contacts</a></li>
+          </ul>
+        </nav>
+
+        <!-- Переключатель языка снизу меню -->
+        <div class="lang-switch__menu mobile-lang-switch">
+          <button type="button" data-lang="kz">KAZ</button>
+          <button type="button" data-lang="ru" class="is-active">RU</button>
+          <button type="button" data-lang="en">ENG</button>
+        </div>
+      </div>
+
     </div>
   </header>
 
@@ -61,12 +89,18 @@
         <div class="container">
           <ul class="stats">
             <li class="stats__item">
+              <span class="stats__label stats__label--top">
+                <span class="stats__chip" data-i18n="hero.stat1kz"></span>
+              </span>
               <span class="stats__number">30+</span>
               <span class="stats__label">
                 <span class="stats__chip" data-i18n="hero.stat1">Years of Expertise</span>
               </span>
             </li>
             <li class="stats__item">
+              <span class="stats__label stats__label--top">
+                
+              </span>
               <span class="stats__number">100+</span>
               <span class="stats__label stats__label--stacked">
                 <span class="stats__chip" data-i18n="hero.stat2a">Major</span>
@@ -74,6 +108,9 @@
               </span>
             </li>
             <li class="stats__item">
+              <span class="stats__label stats__label--top">
+                <span class="stats__chip" data-i18n="hero.stat3kz"></span>
+              </span>
               <span class="stats__number">500+</span>
               <span class="stats__label stats__label--stacked">
                 <span class="stats__chip" data-i18n="hero.stat3a">Specialist</span>
@@ -95,21 +132,30 @@
     <section class="directions" id="directions">
       <div class="directions__inner">
         <div class="container chip-title-wrap">
-          <h2 class="chip-title" data-i18n="directions.title">We Create</h2>
+          <h2 class="chip-title"><span data-i18n="directions.title">We Create</span></h2>
         </div>
         <div class="container">
           <ul class="directions__grid">
             <li class="direction-card">
               <img src="img/icons/icon_radio.svg" alt="" class="direction-card__icon" aria-hidden="true">
               <p data-i18n="directions.card1">Advanced Radio Communication Systems of any complexity</p>
+              <button type="button" class="direction-card__next" aria-label="Next direction">
+                <img src="img/icons/icon-chevron.svg" alt="" aria-hidden="true">
+              </button>
             </li>
             <li class="direction-card">
               <img src="img/icons/icon_video.svg" alt="" class="direction-card__icon" aria-hidden="true">
               <p data-i18n="directions.card2">Integrated Video Surveillance and Security Networks</p>
+              <button type="button" class="direction-card__next" aria-label="Next direction">
+                <img src="img/icons/icon-chevron.svg" alt="" aria-hidden="true">
+              </button>
             </li>
             <li class="direction-card">
               <img src="img/icons/icon_energy.svg" alt="" class="direction-card__icon" aria-hidden="true">
               <p data-i18n="directions.card3">Automation, Power Supply, and Life-Support Systems</p>
+              <button type="button" class="direction-card__next" aria-label="Next direction">
+                <img src="img/icons/icon-chevron.svg" alt="" aria-hidden="true">
+              </button>
             </li>
           </ul>
         </div>
@@ -125,22 +171,26 @@
     <!-- PROJECTS -->
     <section class="projects" id="projects">
 
-      <article class="project-block project-block--featured">
+      <article class="project-block project-block--featured project-block-1">
         <div class="project-block__inner">
           <div class="container project-block__layout">
             <div class="project-block__text">
-              <p class="chip-title" data-i18n="projects.featured">Featured Projects</p>
+              <p class="chip-title"><span data-i18n="projects.featured">Featured Projects</span></p>
               <p class="chip-title chip-title--black" data-i18n="projects.radio_title">Radio Communication</p>
               <ul class="project-block__list project-block__list--overlap">
-                <li><span class="bullet-mark" aria-hidden="true"></span><span class="bullet-text" data-i18n="projects.radio_b1">µLTE Network at the Tengiz oil field (Nokia-based)</span></li>
+                <li><span class="bullet-mark" aria-hidden="true"></span><span class="bullet-text" data-i18n="projects.radio_b1">pLTE Network at the Tengiz oil field (Nokia-based)</span></li>
                 <li><span class="bullet-mark" aria-hidden="true"></span><span class="bullet-text" data-i18n="projects.radio_b2">TETRA Networks at the Tengiz, Kashagan, and Karachaganak fields (Motorola-based)</span></li>
                 <li><span class="bullet-mark" aria-hidden="true"></span><span class="bullet-text" data-i18n="projects.radio_b3">MotoTRBO Network along the Karachaganak – Aksai – Uralsk – Atyrau pipeline (Motorola-based)</span></li>
               </ul>
             </div>
             <div class="project-block__gallery project-block__gallery--split">
-              <img src="img/radio_1.png" alt="Radio antenna equipment installation" class="project-block__photo project-block__photo--1">
-              <img src="img/radio_2.png" alt="MotoTRBO base station cabinets" class="project-block__photo project-block__photo--2">
-              <img src="img/Radio_3.png" alt="Communications tower" class="project-block__photo project-block__photo--tall">
+              <div class="col-1">
+                <img src="img/radio_1.png" alt="Radio antenna equipment installation" class="project-block__photo project-block__photo--1">
+                <img src="img/radio_2.png" alt="MotoTRBO base station cabinets" class="project-block__photo project-block__photo--2">
+              </div>
+              <div class="col-2">
+                <img src="img/Radio_3.png" alt="Communications tower" class="project-block__photo project-block__photo--tall">
+              </div>
             </div>
           </div>
           <div class="container screen-end">
@@ -152,11 +202,11 @@
         </div>
       </article>
 
-      <article class="project-block project-block--featured">
+      <article class="project-block project-block--featured project-block-2">
         <div class="project-block__inner">
           <div class="container project-block__layout">
             <div class="project-block__text">
-              <p class="chip-title" data-i18n="projects.featured">Featured Projects</p>
+              <p class="chip-title"><span data-i18n="projects.featured">Featured Projects</span></p>
               <p class="chip-title chip-title--black" data-i18n="projects.video_title">Video Surveillance</p>
               <ul class="project-block__list project-block__list--overlap">
                 <li><span class="bullet-mark" aria-hidden="true"></span><span class="bullet-text" data-i18n="projects.video_b1">3,000+ Cameras, including explosion-proof models – Tengiz, Karachaganak, Prorva, and Atyrau sites</span></li>
@@ -164,9 +214,13 @@
               </ul>
             </div>
             <div class="project-block__gallery project-block__gallery--split">
-              <img src="img/video_1.png" alt="Video surveillance control cabinet wiring" class="project-block__photo project-block__photo--1">
-              <img src="img/Video_2.png" alt="PTZ camera on a field mast" class="project-block__photo project-block__photo--2">
-              <img src="img/Video_3.png" alt="Surveillance camera tower with equipment cabinet" class="project-block__photo project-block__photo--tall">
+              <div class="col-1">
+                <img src="img/video_1.png" alt="Video surveillance control cabinet wiring" class="project-block__photo project-block__photo--1">
+                <img src="img/Video_2.png" alt="PTZ camera on a field mast" class="project-block__photo project-block__photo--2">
+              </div>
+              <div class="col-2">
+                <img src="img/Video_3.png" alt="Surveillance camera tower with equipment cabinet" class="project-block__photo project-block__photo--tall">
+              </div>
             </div>
           </div>
           <div class="container screen-end">
@@ -178,23 +232,26 @@
         </div>
       </article>
 
-      <article class="project-block project-block--featured">
+      <article class="project-block project-block--featured project-block-3">
         <div class="project-block__inner">
           <div class="container project-block__layout">
             <div class="project-block__text">
-              <p class="chip-title" data-i18n="projects.featured">Featured Projects</p>
-              <p class="chip-title chip-title--black" data-i18n="projects.auto_title1">Automation, Power &amp;</p>
-              <p class="chip-title chip-title--black" data-i18n="projects.auto_title2">Life-Support</p>
+              <p class="chip-title"><span data-i18n="projects.featured">Featured Projects</span></p>
+              <p class="chip-title chip-title--black"><span data-i18n="projects.auto_title1">Automation, Power & Life-Support</span></p>
               <ul class="project-block__list project-block__list--overlap">
                 <li><span class="bullet-mark" aria-hidden="true"></span><span class="bullet-text" data-i18n="projects.auto_b1">50+ Communication Nodes – West Kazakhstan and Atyrau regions</span></li>
                 <li><span class="bullet-mark" aria-hidden="true"></span><span class="bullet-text" data-i18n="projects.auto_b2">Hybrid Systems (Diesel + Solar) – from Tengiz to Urikhtau</span></li>
                 <li><span class="bullet-mark" aria-hidden="true"></span><span class="bullet-text" data-i18n="projects.auto_b3">Fully Automated Life-Support Systems for remote and hard-to-reach communication nodes from Karachaganak to Atyrau</span></li>
               </ul>
             </div>
-            <div class="project-block__gallery project-block__gallery--split project-block__gallery--reverse">
-              <img src="img/autimation_1.png" alt="Cable rack in a communications cabinet" class="project-block__photo project-block__photo--tall">
-              <img src="img/Automation_2.png" alt="Communications tower and equipment building" class="project-block__photo project-block__photo--1">
-              <img src="img/Automation_3.png" alt="Gas cylinders for the power system" class="project-block__photo project-block__photo--2">
+            <div class="project-block__gallery project-block__gallery--split">
+              <div class="col-1">
+                <img src="img/autimation_1.png" alt="Cable rack in a communications cabinet" class="project-block__photo project-block__photo--tall">
+              </div>
+              <div class="col-2">
+                <img src="img/Automation_2.png" alt="Communications tower and equipment building" class="project-block__photo project-block__photo--1">
+                <img src="img/Automation_3.png" alt="Gas cylinders for the power system" class="project-block__photo project-block__photo--2">
+              </div>
             </div>
           </div>
           <div class="container screen-end">
@@ -212,7 +269,7 @@
     <section class="priorities" id="priorities">
       <div class="priorities__inner">
         <div class="container chip-title-wrap">
-          <h2 class="chip-title" data-i18n="priorities.title">Our Priorities</h2>
+          <h2 class="chip-title"><span data-i18n="priorities.title">Our Priorities</span></h2>
         </div>
         <div class="container">
           <ul class="priorities__grid">
@@ -255,33 +312,45 @@
     <section class="approach" id="approach">
       <div class="approach__inner">
         <div class="container chip-title-wrap">
-          <h2 class="chip-title" data-i18n="approach.title">Our Approach</h2>
+          <h2 class="chip-title"><span data-i18n="approach.title">Our Approach</span></h2>
         </div>
         <div class="container">
           <ol class="approach__steps">
             <li class="approach-step">
               <span class="approach-step__number">1</span>
               <span class="approach-step__rule"></span>
-              <h3 class="chip-title chip-title--black chip-title--sm" data-i18n="approach.s1_t">Defining the Goal</h3>
+              <h3 class="chip-title chip-title--black chip-title--sm"><span data-i18n="approach.s1_t">Defining the Goal</span></h3>
               <p data-i18n="approach.s1_d">We begin by getting to the heart of the matter: working closely with our Clients to truly understand the challenge and the ultimate vision they wish to achieve</p>
+              <button type="button" class="approach-step__next" aria-label="Next step">
+                <img src="img/icons/icon-chevron.svg" alt="" aria-hidden="true">
+              </button>
             </li>
             <li class="approach-step">
               <span class="approach-step__number">2</span>
               <span class="approach-step__rule"></span>
-              <h3 class="chip-title chip-title--black chip-title--sm" data-i18n="approach.s2_t">Exploring the Possibilities</h3>
+              <h3 class="chip-title chip-title--black chip-title--sm"><span data-i18n="approach.s2_t">Exploring the Possibilities</span></h3>
               <p data-i18n="approach.s2_d">We carefully consider different options, choosing the optimal one in terms of efficiency, safety, and cost</p>
+              <button type="button" class="approach-step__next" aria-label="Next step">
+                <img src="img/icons/icon-chevron.svg" alt="" aria-hidden="true">
+              </button>
             </li>
             <li class="approach-step">
               <span class="approach-step__number">3</span>
               <span class="approach-step__rule"></span>
-              <h3 class="chip-title chip-title--black chip-title--sm" data-i18n="approach.s3_t">Implementation</h3>
+              <h3 class="chip-title chip-title--black chip-title--sm"><span data-i18n="approach.s3_t">Implementation</span></h3>
               <p data-i18n="approach.s3_d">We strictly follow the plan, ensuring superior quality at every stage – from design to launch</p>
+              <button type="button" class="approach-step__next" aria-label="Next step">
+                <img src="img/icons/icon-chevron.svg" alt="" aria-hidden="true">
+              </button>
             </li>
             <li class="approach-step">
               <span class="approach-step__number">4</span>
               <span class="approach-step__rule"></span>
-              <h3 class="chip-title chip-title--black chip-title--sm" data-i18n="approach.s4_t">Support</h3>
+              <h3 class="chip-title chip-title--black chip-title--sm"><span data-i18n="approach.s4_t">Support</span></h3>
               <p data-i18n="approach.s4_d">We remain involved with the project even after implementation – adapting it to changes, upgrading, and expanding it as needed</p>
+              <button type="button" class="approach-step__next" aria-label="Next step">
+                <img src="img/icons/icon-chevron.svg" alt="" aria-hidden="true">
+              </button>
             </li>
           </ol>
         </div>
@@ -302,7 +371,7 @@
             <img src="img/contacts.png" alt="TEGRA">
           </div>
           <div class="contact__info">
-            <p class="chip-title" data-i18n="contact.title">Contact Us</p>
+            <p class="chip-title"><span data-i18n="contact.title">Contact Us</span></p>
             <address>
               <p data-i18n="contact.address">20, Akhmedyarov st., Almaty,<br>050059, Republic of Kazakhstan</p>
               <p><a href="tel:+77272582626">+ 7 727 258 26 26</a></p>
@@ -323,12 +392,10 @@
   <footer class="site-footer">
     <div class="container footer__top">
       <a href="#top" class="logo logo--light">
-        <span class="logo__name">TEGRA</span>
-        <span class="logo__rule" aria-hidden="true"></span>
-        <span class="logo__tagline">Kazakhstan</span>
+        <img src="img/logo_footer.png" alt="Tegra">
       </a>
       <a href="tel:+77272582626" class="footer__phone">
-        <img src="img/icons/icon-phone.svg" alt="" aria-hidden="true">
+        <img src="img/phone_icon.webp" alt="" aria-hidden="true">
         <span>+7 727 258 26 26</span>
       </a>
     </div>
