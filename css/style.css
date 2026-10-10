@@ -68,6 +68,37 @@ h1, h2, h3, h4 {
 }
 
 /* =========================================================
+   Preloader
+   ========================================================= */
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-black);
+  opacity: 1;
+  transition: opacity 0.4s ease;
+}
+
+.preloader.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.preloader__mark {
+  width: 200px;
+  height: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .preloader {
+    transition: none;
+  }
+}
+
+/* =========================================================
    Full-screen block sections
    Every major block occupies at least one full viewport height,
    with its content vertically centered and the divider button
@@ -169,12 +200,28 @@ h1, h2, h3, h4 {
   height: 100%;
 }
 
-/* Interactive variant: a back-to-top control (red border, chevron) */
+/* Interactive variant: a back-to-top control (red border, chevron).
+   Stays faded out while the page is actively scrolling and fades
+   back in once scrolling settles, so it reads as a deliberate cue
+   rather than a static fixture on every screen. */
 .screen-end__mark--active {
   border-radius: 8px;
   border: 3px solid var(--color-red);
   background: var(--color-white);
   cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.screen-end__mark--active.is-idle {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .screen-end__mark--active {
+    opacity: 1;
+    transition: none;
+  }
 }
 
 .screen-end__mark--active img {
@@ -275,7 +322,8 @@ h1, h2, h3, h4 {
 }
 
 .main-nav__list a:hover,
-.main-nav__list a:focus-visible {
+.main-nav__list a:focus-visible,
+.main-nav__list a.is-active {
   color: var(--color-red);
 }
 
@@ -408,6 +456,7 @@ h1, h2, h3, h4 {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  max-width: 190px;
 }
 
 .stats__number {
@@ -557,11 +606,11 @@ html:not(:lang(kk)) .stats__label--top {
    Each project block is its own full-screen section.
    ========================================================= */
 .projects {
-  background: var(--color-bg);
+  background: var(--color-white);
 }
 
 .project-block {
-  background: var(--color-bg);
+  background: var(--color-white);
 }
 
 .project-block__inner {
@@ -800,7 +849,7 @@ html:not(:lang(kk)) .stats__label--top {
    Approach
    ========================================================= */
 .approach {
-  background: var(--color-bg);
+  background: var(--color-white);
 }
 
 .approach__inner {
@@ -826,6 +875,7 @@ html:not(:lang(kk)) .stats__label--top {
 .approach-step {
   --step-color: var(--color-gray-light);
   --step-chip-bg: var(--color-gray-light);
+  --step-text-color: var(--color-gray);
 }
 
 .approach-step__number {
@@ -835,7 +885,7 @@ html:not(:lang(kk)) .stats__label--top {
   font-size: 46px;
   line-height: 1;
   color: var(--step-color);
-  transition: color 0.25s ease;
+  transition: color 0.3s ease;
 }
 
 .approach-step__rule {
@@ -844,13 +894,13 @@ html:not(:lang(kk)) .stats__label--top {
   margin-top: 10px;
   margin-bottom: 20px;
   background: var(--step-color);
-  transition: background-color 0.25s ease;
+  transition: background-color 0.3s ease;
 }
 
 .approach-step .chip-title {
   background: transparent;
   margin-bottom: 14px;
-  transition: background-color 0.25s ease;
+  transition: background-color 0.3s ease;
   line-height: 1.5em;
   padding: 0;
 }
@@ -865,16 +915,19 @@ html:not(:lang(kk)) .stats__label--top {
   font-family: var(--font-display);
   font-size: 14px;
   line-height: 1.6;
-  color: var(--color-gray);
+  color: var(--step-text-color);
+  transition: color 0.3s ease;
 }
 
-/* Steps sit gray by default; hovering (or focusing into) a step highlights
-   it — number and rule turn red, the title chip turns black — instead of
-   one or two steps being permanently singled out. */
-.approach-step:hover,
+/* Steps cycle through highlighted state automatically (js/main.js,
+   every 2.4s, pausing on hover) instead of one or two steps being
+   permanently singled out. :focus-within also highlights a step so
+   keyboard users get the same cue when tabbing into it. */
+.approach-step.is-active,
 .approach-step:focus-within {
   --step-color: var(--color-red);
   --step-chip-bg: var(--color-black);
+  --step-text-color: var(--color-black);
 }
 
 /* =========================================================
@@ -981,13 +1034,14 @@ html:not(:lang(kk)) .stats__label--top {
 .footer__nav ul {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: flex-start;
-  gap: 32px;
+  gap: 16px 64px;
   padding-block: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.03em;
-  font-family: var(--font-display);
 }
 
 .footer__nav a:hover {
