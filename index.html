@@ -16,6 +16,10 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <div class="preloader" aria-hidden="true">
+    <img src="img/logo.svg" alt="" class="preloader__mark">
+  </div>
+
   <a class="skip-link" href="#main" data-i18n="a11y.skip_link">Перейти к содержимому</a>
 
   <header class="site-header">
@@ -35,12 +39,12 @@
       <div class="lang-switch">
         <button type="button" class="lang-switch__toggle" aria-haspopup="listbox" aria-expanded="false">
           <span class="lang-switch__current">ENG</span>
-          <img src="img/icons/icon-chevron.svg" alt="" class="lang-switch__icon" aria-hidden="true">
+          <img src="img/icons/icon-chevron-red.svg" alt="" class="lang-switch__icon" aria-hidden="true">
         </button>
         <ul class="lang-switch__menu" role="listbox" hidden>
-          <li role="option"><button type="button" data-lang="en" class="is-active">ENG</button></li>
           <li role="option"><button type="button" data-lang="kz">KAZ</button></li>
           <li role="option"><button type="button" data-lang="ru">RU</button></li>
+          <li role="option"><button type="button" data-lang="en" class="is-active">ENG</button></li>
         </ul>
       </div>
     </div>
@@ -259,13 +263,13 @@
         </div>
         <div class="container">
           <ol class="approach__steps">
-            <li class="approach-step approach-step--1">
+            <li class="approach-step">
               <span class="approach-step__number">1</span>
               <span class="approach-step__rule"></span>
               <h3 class="chip-title chip-title--black chip-title--sm" data-i18n="approach.s1_t">Defining the Goal</h3>
               <p data-i18n="approach.s1_d">We begin by getting to the heart of the matter: working closely with our Clients to truly understand the challenge and the ultimate vision they wish to achieve</p>
             </li>
-            <li class="approach-step approach-step--2">
+            <li class="approach-step">
               <span class="approach-step__number">2</span>
               <span class="approach-step__rule"></span>
               <h3 class="chip-title chip-title--black chip-title--sm" data-i18n="approach.s2_t">Exploring the Possibilities</h3>
@@ -305,7 +309,7 @@
             <p class="chip-title" data-i18n="contact.title">Contact Us</p>
             <address>
               <p data-i18n="contact.address">20, Akhmedyarov st., Almaty,<br>050059, Republic of Kazakhstan</p>
-              <p><a href="tel:+77272582626">+ 7 727 258 26 26</a></p>
+              <p><a href="tel:+77272582626">+7 727 258 26 26</a></p>
               <p><a href="mailto:tegra@tegra.kz">tegra@tegra.kz</a></p>
             </address>
           </div>
