@@ -106,7 +106,7 @@ h1, h2, h3, h4 {
    each block settle flush against the sticky header as the user
    scrolls, so every screen shows exactly one full block.
    ========================================================= */
-.hero,
+/* .hero,
 .directions,
 .project-block,
 .priorities,
@@ -121,7 +121,7 @@ h1, h2, h3, h4 {
   scroll-snap-stop: always;
   scroll-margin-top: var(--header-height);
   padding-block: 64px;
-}
+} */
 
 /* =========================================================
    Section title (red banner)
@@ -344,8 +344,8 @@ h1, h2, h3, h4 {
 }
 
 .lang-switch__icon {
-  width: 9px;
-  height: 9px;
+  width: 15px;
+  height: 15px;
   transform: rotate(180deg);
   transition: transform 0.2s ease;
 }
@@ -456,7 +456,8 @@ h1, h2, h3, h4 {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  max-width: 190px;
+  /* max-width: 190px; */
+  width: 40%;
 }
 
 .stats__number {
@@ -467,17 +468,31 @@ h1, h2, h3, h4 {
   line-height: 1;
 }
 
-.stats__label {
+/* .stats__label {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   margin-left: 40%;
   width: 100%;
-}
+} */
 
-.stats__label--top{
+.stats__label{
   margin-left: 0;
   min-height: 32px;
+  display: inline-block;
+  line-height: 1.85em;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 20px;
+  margin-left: 40%;
+}
+
+.stats__label > span{
+  background-color: var(--color-red);
+  color: var(--color-white);
+  padding: 5px 10px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
 }
 
 html:not(:lang(kk)) .stats__label--top {
@@ -488,7 +503,7 @@ html:not(:lang(kk)) .stats__label--top {
   gap: 4px;
 }
 
-.stats__chip {
+/* .stats__chip {
   display: inline-block;
   background: var(--color-red);
   color: var(--color-white);
@@ -497,7 +512,7 @@ html:not(:lang(kk)) .stats__label--top {
   font-size: 20px;
   line-height: 1.3;
   padding: 3px 10px;
-}
+} */
 
 
 /* =========================================================
@@ -540,13 +555,16 @@ html:not(:lang(kk)) .stats__label--top {
 .chip-title > span{
   background-color: var(--color-red);
   line-height: 1.7em;
-  padding: 5px;
+  padding: 5px 10px 0;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
 }
 
 .chip-title--black {
   background: var(--color-black);
   font-size: 28px;
-  margin-top: 15px;
+  margin-top: 5px;
+  padding: 5px 10px 0;
 }
 
 .chip-title--black-2 {
@@ -706,6 +724,7 @@ html:not(:lang(kk)) .stats__label--top {
 .project-block__list--overlap {
   margin-top: 32px;
   gap: 24px;
+  margin-left: 15px;
 }
 
 .project-block__list--overlap li {
@@ -790,7 +809,9 @@ html:not(:lang(kk)) .stats__label--top {
 .project-block-3 .chip-title--black > span{
   background-color: var(--color-dark);
   line-height: 1.7em;
-  padding: 5px;
+  padding: 5px 10px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
 }
 
 /* =========================================================
@@ -908,7 +929,9 @@ html:not(:lang(kk)) .stats__label--top {
 .approach-step .chip-title > span{
   background-color: var(--step-chip-bg);
   line-height: 1.7em;
-  padding: 5px;
+  padding: 5px;  
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
 }
 
 .approach-step p {
@@ -973,23 +996,26 @@ html:not(:lang(kk)) .stats__label--top {
 .contact__info {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: flex-start;
 }
 
 .contact__info .chip-title {
   margin-bottom: 32px;
+  margin-top: 0;
+  padding-top: 0;
 }
 
 .contact__info address {
+  margin-top: 20%;
   font-style: normal;
 }
 
 .contact__info address p {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 16px;
-  line-height: 1.7;
+  font-size: 28px;
+  line-height: 1.5;
   color: var(--color-black);
   margin-bottom: 10px;
 }
@@ -1005,7 +1031,7 @@ html:not(:lang(kk)) .stats__label--top {
   background: var(--color-black);
   color: var(--color-white);
   padding-top: 36px;
-  scroll-snap-align: end;
+  /* scroll-snap-align: end; */
 }
 
 .footer__top {
@@ -1035,13 +1061,13 @@ html:not(:lang(kk)) .stats__label--top {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: flex-start;
   gap: 16px 64px;
   padding-block: 20px;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.03em;
+  justify-content: space-between;
 }
 
 .footer__nav a:hover {
@@ -1071,7 +1097,7 @@ html:not(:lang(kk)) .stats__label--top {
    are available and motion isn't reduced (.has-js-reveal on
    <html>) — without it, everything stays visible by default.
    ========================================================= */
-html.has-js-reveal .directions .chip-title,
+/* html.has-js-reveal .directions .chip-title,
 html.has-js-reveal .priorities .chip-title-wrap .chip-title,
 html.has-js-reveal .approach .chip-title-wrap .chip-title {
   opacity: 0;
@@ -1109,10 +1135,10 @@ html.has-js-reveal .contact__info {
   opacity: 0;
   transform: translateX(40px);
   transition: opacity 0.7s ease, transform 0.7s ease;
-}
+} */
 
 /* Stagger grid items so they don't all land at once */
-.direction-card:nth-child(2) { transition-delay: 0.12s; }
+/* .direction-card:nth-child(2) { transition-delay: 0.12s; }
 .direction-card:nth-child(3) { transition-delay: 0.24s; }
 
 .priority-card:nth-child(2) { transition-delay: 0.08s; }
@@ -1123,13 +1149,13 @@ html.has-js-reveal .contact__info {
 
 .approach-step:nth-child(2) { transition-delay: 0.12s; }
 .approach-step:nth-child(3) { transition-delay: 0.24s; }
-.approach-step:nth-child(4) { transition-delay: 0.36s; }
+.approach-step:nth-child(4) { transition-delay: 0.36s; } */
 
 /* Revealed state, scoped per block so re-entering a block replays it.
    Needs the same html.has-js-reveal prefix as the hidden-state rules
    above — otherwise it has lower specificity (one fewer type selector)
    and the opacity: 0 rule wins even after .in-view is added. */
-html.has-js-reveal .directions.in-view .chip-title,
+/* html.has-js-reveal .directions.in-view .chip-title,
 html.has-js-reveal .priorities.in-view .chip-title-wrap .chip-title,
 html.has-js-reveal .approach.in-view .chip-title-wrap .chip-title,
 html.has-js-reveal .directions.in-view .direction-card,
@@ -1141,7 +1167,7 @@ html.has-js-reveal .contact.in-view .contact__media,
 html.has-js-reveal .contact.in-view .contact__info {
   opacity: 1;
   transform: translate(0, 0);
-}
+} */
 
 
 
@@ -1199,6 +1225,9 @@ html.has-js-reveal .contact.in-view .contact__info {
    Mobile Menu Screen Styles (< 1024px)
    ========================================================= */
 @media screen and (max-width: 1023px) {
+  .main-nav{
+    display: none;
+  }
   .nav-toggle {
     display: block; /* Показываем иконку гамбургера */
   }
@@ -1259,6 +1288,7 @@ html.has-js-reveal .contact.in-view .contact__info {
 
   /* Нижний блок языков в мобильном меню */
   .mobile-lang-switch {
+    position: static;
     display: flex;
     align-items: center;
     gap: 24px;
@@ -1274,6 +1304,7 @@ html.has-js-reveal .contact.in-view .contact__info {
     background: transparent;
     border: none;
     cursor: pointer;
+    text-align: center;
   }
 
   .mobile-lang-switch button.is-active,
@@ -1387,6 +1418,7 @@ html.has-js-reveal .contact.in-view .contact__info {
   .directions .chip-title,
   .priorities .chip-title{
     text-align: center;
+    padding: 0 5px;
   }
   .contact .chip-title{
     margin: auto;
@@ -1442,7 +1474,7 @@ html.has-js-reveal .contact.in-view .contact__info {
     padding-inline: 0 !important; /* Убираем боковые отступы у контейнера */
   }
 
-  .approach__steps {
+  /* .approach__steps {
     display: flex;
     gap: 16px;
     overflow-x: auto;
@@ -1457,7 +1489,7 @@ html.has-js-reveal .contact.in-view .contact__info {
     /* Скрытие полосы прокрутки */
     scrollbar-width: none;
     -ms-overflow-style: none;
-  }
+  } */
 
   .approach__steps::-webkit-scrollbar {
     display: none;
@@ -1469,8 +1501,8 @@ html.has-js-reveal .contact.in-view .contact__info {
     max-width: 95vw;
     
     /* Выравнивание карточки ровно по центру/краю при прилипании */
-    scroll-snap-align: center;
-    scroll-snap-stop: always;
+    /* scroll-snap-align: center;
+    scroll-snap-stop: always; */
 
     padding-inline: 20px; /* внутренний отступ текста внутри карточки */
     
@@ -1487,7 +1519,7 @@ html.has-js-reveal .contact.in-view .contact__info {
     border-radius: 10px;
     border: 2px solid var(--color-red);
     background: var(--color-white);
-    display: flex;
+    /* display: flex; */
     align-items: center;
     justify-content: center;
     cursor: pointer;
@@ -1507,15 +1539,15 @@ html.has-js-reveal .contact.in-view .contact__info {
   .directions__grid {
     display: flex;
     gap: 16px;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
+    /* overflow-x: auto; */
+    /* overflow-y: hidden; */
+    /* scroll-snap-type: x mandatory; */
+    /* scroll-behavior: smooth; */
     padding-inline: 20px;
     padding-bottom: 24px;
     /* Скрываем полосу прокрутки */
-    scrollbar-width: none;
-    -ms-overflow-style: none;
+    /* scrollbar-width: none; */
+    /* -ms-overflow-style: none; */
     padding-left: 20px;
   }
 
@@ -1525,10 +1557,10 @@ html.has-js-reveal .contact.in-view .contact__info {
 
   .direction-card {
     /* Точная ширина карточки за вычетом боковых отступов */
-    flex: 0 0 90vw;
-    max-width: 90vw;
-    scroll-snap-align: center;
-    scroll-snap-stop: always;
+    flex: 0 0 33%;
+    max-width: 100%;
+    /* scroll-snap-align: center;
+    scroll-snap-stop: always; */
     position: relative;
     padding-bottom: 60px; /* Отступ под стрелку */
   }
@@ -1548,7 +1580,8 @@ html.has-js-reveal .contact.in-view .contact__info {
     border-radius: 10px;
     border: 2px solid var(--color-red);
     background: var(--color-white);
-    display: flex;
+    /* display: flex; */
+    display: none;
     align-items: center;
     justify-content: center;
     cursor: pointer;

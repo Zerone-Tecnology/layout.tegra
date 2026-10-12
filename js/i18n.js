@@ -29,8 +29,8 @@
       "hero.stat1": "Years of Expertise",
       "hero.stat2a": "Major",
       "hero.stat2b": "Projects",
-      "hero.stat3a": "Specialist",
-      "hero.stat3b": "Certifications",
+      "hero.stat3a": "Specialist Certifications",
+      "hero.stat3b": "",
 
       "directions.title": "We Create",
       "directions.card1": "Advanced Radio Communication Systems of any complexity",
@@ -46,7 +46,6 @@
       "projects.video_b1": "3,000+ Cameras, including explosion-proof models – Tengiz, Karachaganak, Prorva, and Atyrau sites",
       "projects.video_b2": "Access Control Systems & Analytics – airports, oil depots, and terminals in West Kazakhstan",
       "projects.auto_title1": "Automation, Power & Life-Support",
-      "projects.auto_title2": "",
       "projects.auto_b1": "50+ Communication Nodes – West Kazakhstan and Atyrau regions",
       "projects.auto_b2": "Hybrid Systems (Diesel + Solar) – from Tengiz to Urikhtau",
       "projects.auto_b3": "Fully Automated Life-Support Systems for remote and hard-to-reach communication nodes from Karachaganak to Atyrau",
@@ -100,8 +99,8 @@
       "hero.stat1": "лет на рынке",
       "hero.stat2a": "крупных",
       "hero.stat2b": "проектов",
-      "hero.stat3a": "сертификатов от",
-      "hero.stat3b": "ведущих производителей",
+      "hero.stat3a": "сертификатов от ведущих производителей",
+      "hero.stat3b": "",
 
       "directions.title": "Направления деятельности",
       "directions.card1": "Современные системы радиосвязи любой сложности",
@@ -117,7 +116,6 @@
       "projects.video_b1": "3000+ камер, в том числе взрывозащищенных – объекты Тенгиз, Карачаганак, Прорва, Атырау",
       "projects.video_b2": "СКУД и аналитика – аэропорты, нефтебазы, терминалы ЗКО",
       "projects.auto_title1": "Системы автоматики, энергоснабжения и жизнеобеспечения оборудования",
-      "projects.auto_title2": "",
       "projects.auto_b1": "50+ узлов связи – ЗКО и Атырауская область",
       "projects.auto_b2": "Гибридные системы – дизель + солнечные батареи – от Тенгиза до Урихтау",
       "projects.auto_b3": "Автоматизированные системы полного обеспечения для удаленных и труднодоступных узлов связи от Карачаганака до Атырау",
@@ -147,7 +145,7 @@
       "approach.s4_d": "После внедрения оказываем поддержку и продолжаем работать с проектом - адаптируем его к изменениям, модернизируем и расширяем, если это необходимо",
 
       "contact.title": "Контакты",
-      "contact.address": "050059 | Казахстан | г. Алматы <br> ул. Ахмедьярова | д. 2",
+      "contact.address": "050059 | Казахстан | г. Алматы <br> ул. Ахмедьярова | д. 20",
 
       "footer.copyright": "© 2026, TEGRA Kazakhstan. Все права защищены",
       "footer.privacy": "Политика конфиденциальности"
@@ -171,10 +169,10 @@
       "hero.stat2a": "ірі",
       "hero.stat2b": "жоба",
       "hero.stat3kz": "Жетекші өндірушілерден",
-      "hero.stat3a": "маман",
-      "hero.stat3b": "сертификаты",
+      "hero.stat3a": "маман сертификаты",
+      "hero.stat3b": "",
 
-      "directions.title": "Біз жасаймыз",
+      "directions.title": "Қызмет бағыттары",
       "directions.card1": "Кез келген күрделіліктегі заманауи радиобайланыс жүйелері",
       "directions.card2": "Біріктірілген бейнебақылау жəне қауіпсіздік желілері",
       "directions.card3": "Автоматика, энергиямен жабдықтау жəне жабдықтың үздіксіз қызметін қамтамасыз ету жүйелері",
@@ -188,7 +186,6 @@
       "projects.video_b1": "3000-нан астам, соның ішінде жарылыстан қорғалған камералар – Теңіз, Қарашығанақ, Прорва жəне Атырау нысандары",
       "projects.video_b2": "Кіруді бақылау және басқару жүйесі (КББЖ) жəне аналитика – БҚО əуежайлары, мұнай мұнай базалары жəне терминалдар",
       "projects.auto_title1": "Автоматика, энергиямен жабдықтау жəне жабдықтың үздіксіз қызметін қамтамасыз ету жүйелері",
-      "projects.auto_title2": "",
       "projects.auto_b1": "50-ден астам байланыс торабы – БҚО жəне Атырау облысы",
       "projects.auto_b2": "Гибридті жүйелер (Дизель + Күн батареялары) – Теңізден Өріктауға дейін",
       "projects.auto_b3": "Қарашығанақтан Атырауға дейінгі шалғай жəне жетуге қиын байланыс тораптарын толық қамтамасыз ететін автоматтандырылған жүйелер",
