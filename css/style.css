@@ -27,11 +27,15 @@
 /* =========================================================
    Base
    ========================================================= */
+html{
+  scroll-behavior: smooth;
+}
 body {
   font-family: var(--font-display);
   color: var(--color-black);
   background: var(--color-white);
   font-size: 15px;
+
 }
 
 :lang(kk) body,
@@ -102,11 +106,10 @@ h1, h2, h3, h4 {
    Full-screen block sections
    Every major block occupies at least one full viewport height,
    with its content vertically centered and the divider button
-   pinned to the bottom edge as a scroll cue. Scroll-snap makes
-   each block settle flush against the sticky header as the user
-   scrolls, so every screen shows exactly one full block.
+   pinned to the bottom edge as a scroll cue. Page-by-page switching
+   on desktop is handled by Pageable (see js/main.js).
    ========================================================= */
-/* .hero,
+.hero,
 .directions,
 .project-block,
 .priorities,
@@ -117,11 +120,122 @@ h1, h2, h3, h4 {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
   scroll-margin-top: var(--header-height);
   padding-block: 64px;
-} */
+}
+
+/* =========================================================
+   Pageable (page-by-page switching, desktop >= 1024px only)
+   body.pg-cover is set in js/main.js while Pageable is active.
+   Pageable itself slides one tall container; here that container is
+   pinned and the pages are stacked instead ("cover" transition): the
+   next page slides up over the current one, which slightly recedes.
+   The header is fixed, so every page reserves room for it at the top.
+   ========================================================= */
+body.pg-cover .site-header {
+  position: fixed;
+  left: 0;
+  right: 0;
+}
+
+/* Pageable scrolls the wrapper (hiding its scrollbar by making it wider
+   than the screen); with stacked pages nothing needs to scroll there. */
+body.pg-cover .pg-wrapper {
+  width: 100% !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+
+body.pg-cover .pg-container {
+  display: block !important;
+  position: relative;
+  height: 100vh !important;
+  overflow: clip;
+  transform: none !important;
+}
+
+body.pg-cover .pg-page {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  transform: translate3d(0, 100%, 0);
+  transition: transform var(--pg-speed) var(--pg-ease);
+  will-change: transform;
+}
+
+body.pg-cover .pg-page:not(.site-footer) {
+  padding-top: calc(var(--header-height) + 64px);
+  /* Content taller than a low screen scrolls inside the page */
+  overflow-y: auto;
+  scrollbar-width: none;
+  justify-content: safe center;
+}
+
+body.pg-cover .pg-page:not(.site-footer)::-webkit-scrollbar {
+  display: none;
+}
+
+body.pg-cover .pg-page.is-shown {
+  transform: translate3d(0, 0, 0);
+  /* White pages on white — the shadow marks the incoming edge. Only on
+     shown pages, so the next one waiting below the screen casts none. */
+  box-shadow: 0 -24px 48px rgba(0, 0, 0, 0.08);
+}
+
+body.pg-cover .pg-page.is-covered {
+  transform: translate3d(0, -8%, 0) scale(0.94);
+  box-shadow: none;
+}
+
+/* Footer keeps its own height and slides up from the bottom edge,
+   while the last block moves up by the same amount (is-lifted), so
+   the footer sits under it instead of covering it. */
+body.pg-cover .pg-page.site-footer {
+  top: auto;
+  bottom: 0;
+  height: auto !important;
+  box-shadow: none;
+}
+
+body.pg-cover .pg-page.is-lifted {
+  transform: translate3d(0, calc(-1 * var(--pg-footer-height, 0px)), 0);
+  box-shadow: none;
+}
+
+/* Right-side page dots */
+.pg-pips ul li a,
+.pg-pips ul li:hover a {
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  background: var(--color-black);
+  opacity: 0.3;
+  transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+}
+
+.pg-pips ul li:hover a {
+  opacity: 0.7;
+}
+
+.pg-pips ul li a.active,
+.pg-pips ul li:hover a.active {
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  background: var(--color-red);
+  opacity: 1;
+  transform: scale(1.5);
+}
+
+.pg-vertical .pg-pips {
+  right: 24px;
+}
+
+/* The footer isn't a full screen — no dot for it */
+.pg-pips ul li:last-child {
+  display: none;
+}
 
 /* =========================================================
    Section title (red banner)
@@ -1318,13 +1432,8 @@ html.has-js-reveal .contact.in-view .contact__info {
 }
 
 @media screen and (max-width: 600px) {
-  html, body {
-    scroll-snap-type: none !important;
-  }
   .hero, .directions, .project-block, .priorities, .approach, .contact{
     min-height: auto;               /* Отключаем принудительную высоту во весь экран */
-    scroll-snap-align: none;         /* Отключаем прилипание */
-    scroll-snap-stop: normal;       /* Отключаем остановку скролла */
     padding-block: 44px;
   }
   .logo__image{
@@ -1474,7 +1583,7 @@ html.has-js-reveal .contact.in-view .contact__info {
     padding-inline: 0 !important; /* Убираем боковые отступы у контейнера */
   }
 
-  /* .approach__steps {
+  .approach__steps {
     display: flex;
     gap: 16px;
     overflow-x: auto;
@@ -1489,7 +1598,7 @@ html.has-js-reveal .contact.in-view .contact__info {
     /* Скрытие полосы прокрутки */
     scrollbar-width: none;
     -ms-overflow-style: none;
-  } */
+  }
 
   .approach__steps::-webkit-scrollbar {
     display: none;
@@ -1501,8 +1610,8 @@ html.has-js-reveal .contact.in-view .contact__info {
     max-width: 95vw;
     
     /* Выравнивание карточки ровно по центру/краю при прилипании */
-    /* scroll-snap-align: center;
-    scroll-snap-stop: always; */
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
 
     padding-inline: 20px; /* внутренний отступ текста внутри карточки */
     
@@ -1519,7 +1628,7 @@ html.has-js-reveal .contact.in-view .contact__info {
     border-radius: 10px;
     border: 2px solid var(--color-red);
     background: var(--color-white);
-    /* display: flex; */
+    display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
@@ -1539,15 +1648,15 @@ html.has-js-reveal .contact.in-view .contact__info {
   .directions__grid {
     display: flex;
     gap: 16px;
-    /* overflow-x: auto; */
-    /* overflow-y: hidden; */
-    /* scroll-snap-type: x mandatory; */
-    /* scroll-behavior: smooth; */
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
     padding-inline: 20px;
     padding-bottom: 24px;
     /* Скрываем полосу прокрутки */
-    /* scrollbar-width: none; */
-    /* -ms-overflow-style: none; */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
     padding-left: 20px;
   }
 
@@ -1559,8 +1668,8 @@ html.has-js-reveal .contact.in-view .contact__info {
     /* Точная ширина карточки за вычетом боковых отступов */
     flex: 0 0 33%;
     max-width: 100%;
-    /* scroll-snap-align: center;
-    scroll-snap-stop: always; */
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
     position: relative;
     padding-bottom: 60px; /* Отступ под стрелку */
   }

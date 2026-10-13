@@ -11,6 +11,7 @@
   <link rel="manifest" href="img/favicon/favicon_io/site.webmanifest">
   <link rel="preload" href="fonts/Actay/ActayWide-Bold.otf" as="font" type="font/otf" crossorigin>
   <link rel="preload" href="fonts/Gilroy/Gilroy_Qaz-Regular.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pageable@0.6.8/dist/pageable.min.css">
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/fonts.css">
   <link rel="stylesheet" href="css/style.css">
@@ -78,9 +79,10 @@
     </div>
   </header>
 
+  <!-- Контейнер Pageable: экраны и футер — элементы с data-anchor (должен совпадать с id) -->
   <main id="main">
     <!-- HERO -->
-    <section class="hero" id="top">
+    <section class="hero" id="top" data-anchor="top">
       <div class="hero__inner">
         <div class="container hero__grid">
           <div class="hero__content">
@@ -130,7 +132,7 @@
     </section>
 
     <!-- DIRECTIONS -->
-    <section class="directions" id="directions">
+    <section class="directions" id="directions" data-anchor="directions">
       <div class="directions__inner">
         <div class="container chip-title-wrap">
           <h2 class="chip-title"><span data-i18n="directions.title">We Create</span></h2>
@@ -170,9 +172,7 @@
     </section>
 
     <!-- PROJECTS -->
-    <section class="projects" id="projects">
-
-      <article class="project-block project-block--featured project-block-1">
+      <article class="project-block project-block--featured project-block-1" id="projects" data-anchor="projects">
         <div class="project-block__inner">
           <div class="container project-block__layout">
             <div class="project-block__text">
@@ -197,7 +197,7 @@
         </div>
       </article>
 
-      <article class="project-block project-block--featured project-block-2">
+      <article class="project-block project-block--featured project-block-2" id="projects-2" data-anchor="projects-2">
         <div class="project-block__inner">
           <div class="container project-block__layout">
             <div class="project-block__text">
@@ -221,7 +221,7 @@
         </div>
       </article>
 
-      <article class="project-block project-block--featured project-block-3">
+      <article class="project-block project-block--featured project-block-3" id="projects-3" data-anchor="projects-3">
         <div class="project-block__inner">
           <div class="container project-block__layout">
             <div class="project-block__text">
@@ -252,10 +252,8 @@
         </div>
       </article>
 
-    </section>
-
     <!-- PRIORITIES -->
-    <section class="priorities" id="priorities">
+    <section class="priorities" id="priorities" data-anchor="priorities">
       <div class="priorities__inner">
         <div class="container chip-title-wrap">
           <h2 class="chip-title"><span data-i18n="priorities.title">Our Priorities</span></h2>
@@ -298,7 +296,7 @@
     </section>
 
     <!-- APPROACH -->
-    <section class="approach" id="approach">
+    <section class="approach" id="approach" data-anchor="approach">
       <div class="approach__inner">
         <div class="container chip-title-wrap">
           <h2 class="chip-title"><span data-i18n="approach.title">Our Approach</span></h2>
@@ -353,7 +351,7 @@
     </section>
 
     <!-- CONTACT -->
-    <section class="contact" id="contact">
+    <section class="contact" id="contact" data-anchor="contact">
       <div class="contact__inner">
         <div class="container contact__grid">
           <div class="contact__media">
@@ -376,9 +374,8 @@
         </div>
       </div>
     </section>
-  </main>
 
-  <footer class="site-footer">
+  <footer class="site-footer" id="footer" data-anchor="footer" role="contentinfo">
     <div class="container footer__top">
       <a href="#top" class="logo logo--light">
         <img src="img/logo_footer.png" alt="Tegra">
@@ -404,7 +401,9 @@
       <a href="#top" data-i18n="footer.privacy">Privacy Policy</a>
     </div>
   </footer>
+  </main>
 
+  <script src="https://cdn.jsdelivr.net/npm/pageable@0.6.8/dist/pageable.min.js"></script>
   <script src="js/i18n.js"></script>
   <script src="js/main.js"></script>
 </body>

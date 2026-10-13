@@ -140,16 +140,197 @@
     });
   }
 
+  // Page-by-page switching (Pageable, MIT): on desktop (>= 1024px) each
+  // full-screen block is a page, one wheel tick / swipe / key press moves
+  // to the next one. Below 1024px — and with reduced motion — the page
+  // scrolls normally.
+  //
+  // Pageable tracks the current page, draws the dots and handles the
+  // keyboard and #anchor links. What it can't do is added here:
+  //  - "cover" transition: the container Pageable slides is pinned in CSS
+  //    and the pages are stacked instead; .is-shown / .is-covered set here
+  //    make the next page slide up over the current one;
+  //  - wheel: content taller than a low screen scrolls inside its page
+  //    first, and one gesture (including trackpad inertia) flips only one
+  //    page;
+  //  - touch: swipes are handled here, since Pageable cancels touchstart,
+  //    which would break taps on links and buttons.
+  // Pages are the elements with data-anchor; it must equal their id,
+  // because Pageable rewrites the id from it.
+  var PAGE_SPEED = 900;
+  var PAGE_EASE = "cubic-bezier(0.77, 0, 0.175, 1)";
+  var pageContainer = document.querySelector("#main");
+  var desktopQuery = window.matchMedia("(min-width: 1024px)");
+  var pager = null;
+
+  if (pageContainer && typeof window.Pageable === "function" && !prefersReducedMotion) {
+    var pages = Array.prototype.slice.call(pageContainer.querySelectorAll("[data-anchor]"));
+
+    pages.forEach(function (page, i) {
+      page.style.zIndex = String(i + 1); // later pages lie on top
+    });
+    pageContainer.style.setProperty("--pg-speed", PAGE_SPEED + "ms");
+    pageContainer.style.setProperty("--pg-ease", PAGE_EASE);
+
+    var setCoverState = function (activeIndex) {
+      var activeIsFooter = pages[activeIndex].classList.contains("site-footer");
+      if (activeIsFooter) {
+        pageContainer.style.setProperty("--pg-footer-height", pages[activeIndex].offsetHeight + "px");
+      }
+      pages.forEach(function (page, i) {
+        var isAboveFooter = activeIsFooter && i === activeIndex - 1;
+        page.classList.toggle("is-shown", i <= activeIndex);
+        // The footer doesn't cover the last block: that block moves up by
+        // the footer's height instead, like a regular scroll to the end.
+        page.classList.toggle("is-covered", i < activeIndex && !isAboveFooter);
+        page.classList.toggle("is-lifted", isAboveFooter);
+        // Pages still below always slide in from their top.
+        if (i > activeIndex) page.scrollTop = 0;
+      });
+    };
+
+    // Whether the page's own content can still scroll that way. Overflow
+    // that fits into the bottom padding doesn't count: it's visible anyway.
+    var canScrollInside = function (page, direction) {
+      var max = page.scrollHeight - page.clientHeight;
+      if (max <= (parseFloat(window.getComputedStyle(page).paddingBottom) || 0)) return false;
+      return direction > 0 ? page.scrollTop < max - 1 : page.scrollTop > 1;
+    };
+
+    var flip = function (direction) {
+      if (direction > 0) {
+        pager.next();
+      } else {
+        pager.prev();
+      }
+    };
+
+    var enablePager = function () {
+      if (pager) return;
+      pager = new window.Pageable("#main", {
+        animation: PAGE_SPEED,
+        pips: true,
+        // Wheel and touch are handled below; mouse dragging is off.
+        events: { wheel: false, mouse: false, touch: false, keydown: true },
+        onBeforeStart: function () {
+          setCoverState(this.index);
+        }
+      });
+      setCoverState(pager.index);
+      document.body.classList.add("pg-cover");
+    };
+
+    var disablePager = function () {
+      if (!pager) return;
+      pager.destroy();
+      pager = null;
+      document.body.classList.remove("pg-cover");
+      pages.forEach(function (page) {
+        page.classList.remove("is-shown", "is-covered", "is-lifted");
+      });
+    };
+
+    // Wheel: a pause, a change of direction or a stronger push starts a
+    // new gesture; the fading tail of trackpad inertia doesn't. Each
+    // gesture either scrolls inside the page or flips one page — never
+    // both, so reaching the end of a long page doesn't overshoot.
+    var lastWheelAt = 0;
+    var lastWheelDelta = 0;
+    var gestureUsed = false;
+
+    pageContainer.addEventListener("wheel", function (event) {
+      if (!pager) return;
+      // Pageable's own wheel handler always cancels native scrolling.
+      event.stopPropagation();
+
+      var delta = event.deltaY;
+      if (!delta) return;
+
+      var direction = delta > 0 ? 1 : -1;
+      var now = Date.now();
+      var newGesture = now - lastWheelAt > 200 ||
+        direction !== (lastWheelDelta > 0 ? 1 : -1) ||
+        Math.abs(delta) > Math.abs(lastWheelDelta) + 15;
+      lastWheelAt = now;
+      lastWheelDelta = delta;
+      if (newGesture) gestureUsed = false;
+
+      if (canScrollInside(pages[pager.index], direction)) {
+        gestureUsed = true;
+        return;
+      }
+
+      event.preventDefault();
+      if (gestureUsed || pager.scrolling) {
+        gestureUsed = true;
+        return;
+      }
+      gestureUsed = true;
+      flip(direction);
+    }, { passive: false });
+
+    // Touch: a vertical swipe flips the page unless the page's content
+    // could still scroll that way when the swipe began.
+    var touchStartY = null;
+    var touchCouldScroll = null;
+
+    pageContainer.addEventListener("touchstart", function (event) {
+      if (!pager) return;
+      event.stopPropagation();
+      var page = pages[pager.index];
+      touchStartY = event.touches[0].clientY;
+      touchCouldScroll = { down: canScrollInside(page, 1), up: canScrollInside(page, -1) };
+    }, { passive: true });
+
+    pageContainer.addEventListener("touchend", function (event) {
+      if (!pager || touchStartY === null) return;
+      var distance = touchStartY - event.changedTouches[0].clientY;
+      touchStartY = null;
+      if (Math.abs(distance) < 50 || pager.scrolling) return;
+      var direction = distance > 0 ? 1 : -1;
+      if (direction > 0 ? touchCouldScroll.down : touchCouldScroll.up) return;
+      flip(direction);
+    });
+
+    var syncPager = function () {
+      if (desktopQuery.matches) {
+        enablePager();
+      } else {
+        disablePager();
+      }
+    };
+
+    syncPager();
+    if (desktopQuery.addEventListener) {
+      desktopQuery.addEventListener("change", syncPager);
+    } else {
+      desktopQuery.addListener(syncPager);
+    }
+  }
+
+  // With Pageable active go to the page that is or holds the target;
+  // otherwise scroll natively (scroll-margin-top keeps the section clear
+  // of the sticky header).
+  var scrollToTarget = function (target) {
+    var page = pager && (target.closest("[data-anchor]") || target.querySelector("[data-anchor]"));
+    if (page) {
+      pager.scrollToAnchor("#" + page.id);
+    } else {
+      target.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "start" });
+    }
+  };
+
   // Section divider buttons scroll to their target (default: top)
   document.querySelectorAll(".section-divider, .js-scroll-top").forEach(function (button) {
     button.addEventListener("click", function () {
       var targetSelector = button.getAttribute("data-target") || "#top";
       var target = document.querySelector(targetSelector);
       if (target) {
-        target.scrollIntoView({ behavior: "smooth", block: "start" });
+        scrollToTarget(target);
       }
     });
   });
+
 
   // Close mobile nav after choosing a link
   document.querySelectorAll(".main-nav__list a").forEach(function (link) {
@@ -261,143 +442,6 @@
   //   window.addEventListener("scroll", onRevealScroll, { passive: true });
   //   window.addEventListener("resize", onRevealScroll);
   //   updateReveal();
-  // }
-
-  // // Full-page slide navigation: each full-screen block behaves like a
-  // // slide — one wheel or Page Up/Down gesture animates smoothly to the
-  // // next or previous block with our own easing, instead of relying on
-  // // the browser's own (short, browser-dependent) scroll-snap timing.
-  // // The footer sits outside this system and stays reachable by plain
-  // // scrolling once the visitor scrolls past the last block.
-  // var pages = Array.prototype.slice.call(
-  //   document.querySelectorAll(".hero, .directions, .project-block, .priorities, .approach, .contact")
-  // );
-  // var siteFooter = document.querySelector(".site-footer");
-  // var siteHeader = document.querySelector(".site-header");
-
-  // var isDesktop = window.matchMedia("(min-width: 1024px)").matches;
-
-  // if (pages.length && !prefersReducedMotion && isDesktop) {
-  //   var pageAnimating = false;
-  //   // Trackpads keep sending "wheel" events for a while after the
-  //   // physical gesture ends (inertia). Without a cooldown, that
-  //   // trailing burst lands right after pageAnimating resets to false
-  //   // and triggers a second, unintended page change — read by the
-  //   // client as the scroll "jumping two blocks at once". Swallowing
-  //   // wheel input for a short window after each transition fixes it.
-  //   var cooldownUntil = 0;
-
-  //   var headerOffset = function () {
-  //     return siteHeader ? siteHeader.offsetHeight : 0;
-  //   };
-
-  //   var pageTop = function (page) {
-  //     return page.getBoundingClientRect().top + window.pageYOffset - headerOffset();
-  //   };
-
-  //   var currentPageIndex = function () {
-  //     var pos = window.pageYOffset;
-  //     var closest = 0;
-  //     var closestDist = Infinity;
-  //     pages.forEach(function (page, i) {
-  //       var dist = Math.abs(pageTop(page) - pos);
-  //       if (dist < closestDist) {
-  //         closestDist = dist;
-  //         closest = i;
-  //       }
-  //     });
-  //     return closest;
-  //   };
-
-  //   var footerInView = function () {
-  //     if (!siteFooter) return false;
-  //     return siteFooter.getBoundingClientRect().top < window.innerHeight;
-  //   };
-
-  //   var easeInOutQuad = function (t) {
-  //     return t < 0.5 ? 4 * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-  //   };
-
-  //   var animateTo = function (targetY) {
-  //     var startY = window.pageYOffset;
-  //     var distance = targetY - startY;
-  //     if (Math.abs(distance) < 1) return;
-
-  //     pageAnimating = true;
-  //     var startTime = null;
-  //     var duration = 800;
-
-  //     var step = function (timestamp) {
-  //       if (startTime === null) startTime = timestamp;
-  //       var elapsed = timestamp - startTime;
-  //       var t = Math.min(elapsed / duration, 1);
-  //       window.scrollTo({ top: startY + distance * easeInOutQuad(t), left: 0, behavior: "auto" });
-
-  //       if (t < 1) {
-  //         window.requestAnimationFrame(step);
-  //       } else {
-  //         pageAnimating = false;
-  //         cooldownUntil = Date.now() + 350;
-  //       }
-  //     };
-
-  //     window.requestAnimationFrame(step);
-  //   };
-
-  //   var goToPage = function (index) {
-  //     index = Math.max(0, Math.min(pages.length - 1, index));
-  //     animateTo(pageTop(pages[index]));
-  //   };
-
-  //   // Returns true when this gesture is handled by the slide controller
-  //   // (the caller should preventDefault), false to let the browser scroll
-  //   // normally (used at the boundary with the footer).
-  //   var navigate = function (direction) {
-  //     if (pageAnimating || Date.now() < cooldownUntil) return true;
-
-  //     var lastIndex = pages.length - 1;
-
-  //     if (footerInView()) {
-  //       if (direction < 0) {
-  //         goToPage(lastIndex);
-  //         return true;
-  //       }
-  //       return false;
-  //     }
-
-  //     var index = currentPageIndex();
-
-  //     if (index === lastIndex && direction > 0) {
-  //       return false;
-  //     }
-
-  //     goToPage(direction > 0 ? index + 1 : index - 1);
-  //     return true;
-  //   };
-
-  //   window.addEventListener(
-  //     "wheel",
-  //     function (event) {
-  //       if (window.innerWidth < 1024) return;
-
-  //       if (!pageAnimating && Math.abs(event.deltaY) < 2) return;
-  //       if (navigate(event.deltaY)) {
-  //         event.preventDefault();
-  //       }
-  //     },
-  //     { passive: false }
-  //   );
-
-  //   window.addEventListener("keydown", function (event) {
-  //     if (event.key !== "PageDown" && event.key !== "PageUp") return;
-  //     var target = event.target;
-  //     var isFormField = target && /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName);
-  //     if (isFormField) return;
-
-  //     if (navigate(event.key === "PageDown" ? 1 : -1)) {
-  //       event.preventDefault();
-  //     }
-  //   });
   // }
 
   // // Active nav link: highlight whichever header link matches the
