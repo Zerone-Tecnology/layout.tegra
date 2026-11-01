@@ -27,8 +27,8 @@
 
       "hero.text": "Complex communication, security, and power infrastructure projects for major industrial enterprises, government, and financial institutions.",
       "hero.stat1": "Years of Expertise",
-      "hero.stat2a": "Major",
-      "hero.stat2b": "Projects",
+      "hero.stat2a": "Major Projects",
+      "hero.stat2b": "",
       "hero.stat3a": "Specialist Certifications",
       "hero.stat3b": "",
 
@@ -75,7 +75,7 @@
       "approach.s4_d": "We remain involved with the project even after implementation – adapting it to changes, upgrading, and expanding it as needed",
 
       "contact.title": "Contact Us",
-      "contact.address": "20, Akhmedyarov st., Almaty,<br>050059, Republic of Kazakhstan",
+      "contact.address": "20, Akhmedyarov st. | Almaty |<br>050059 | Republic of Kazakhstan",
 
       "footer.copyright": "© 2026, TEGRA Kazakhstan. All rights reserved",
       "footer.privacy": "Privacy Policy"
@@ -166,8 +166,8 @@
       "hero.text": "Ірі өнеркəсіп орындары, мемлекеттік жəне қаржы институттары үшін байланыс, қауіпсіздік жəне энергиямен жабдықтау саласындағы күрделі инфрақұрылымдық жобалар.",
       "hero.stat1kz": "Нарықта",
       "hero.stat1": "жыл",
-      "hero.stat2a": "ірі",
-      "hero.stat2b": "жоба",
+      "hero.stat2a": "ірі жоба",
+      "hero.stat2b": "",
       "hero.stat3kz": "Жетекші өндірушілерден",
       "hero.stat3a": "маман сертификаты",
       "hero.stat3b": "",
@@ -215,7 +215,7 @@
       "approach.s4_d": "Жобаны енгізгеннен кейін де қолдау көрсетіп, жобамен жұмысты жалғастырамыз – қажет болған жағдайда оны өзгеріске бейімдейміз, жаңғыртамыз және кеңейтеміз",
 
       "contact.title": "Байланыс",
-      "contact.address": "Қазақстан Республикасы, 050059, <br> Алматы қаласы, Ахмедьяров көшесі, 20",
+      "contact.address": "Қазақстан Республикасы | 050059<br>|  Алматы қаласы, Ахмедьяров көшесі | 20",
 
       "footer.copyright": "© 2026, TEGRA Kazakhstan. Барлық құқықтар қорғалған",
       "footer.privacy": "Құпиялылық саясаты"

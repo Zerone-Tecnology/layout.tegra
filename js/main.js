@@ -140,6 +140,35 @@
     });
   }
 
+  // Active nav link: header, mobile-menu and footer links that point at
+  // the current block get .is-active. A block without a link of its own
+  // (2nd/3rd project, footer) uses the closest block before it that has
+  // one; the hero has none, so nothing is highlighted there.
+  var navAnchorLinks = Array.prototype.slice.call(
+    document.querySelectorAll('.main-nav__list a[href^="#"], .footer__nav a[href^="#"]')
+  );
+  var navBlocks = Array.prototype.slice.call(document.querySelectorAll("#main > [data-anchor]"));
+
+  var setActiveNav = function (block) {
+    var activeHref = null;
+    for (var i = navBlocks.indexOf(block); i >= 0 && !activeHref; i--) {
+      var href = "#" + navBlocks[i].id;
+      var hasLink = navAnchorLinks.some(function (link) {
+        return link.getAttribute("href") === href;
+      });
+      if (hasLink) activeHref = href;
+    }
+    navAnchorLinks.forEach(function (link) {
+      var isActive = link.getAttribute("href") === activeHref;
+      link.classList.toggle("is-active", isActive);
+      if (isActive) {
+        link.setAttribute("aria-current", "location");
+      } else {
+        link.removeAttribute("aria-current");
+      }
+    });
+  };
+
   // Page-by-page switching (Pageable, MIT): on desktop (>= 1024px) each
   // full-screen block is a page, one wheel tick / swipe / key press moves
   // to the next one. Below 1024px — and with reduced motion — the page
@@ -187,6 +216,7 @@
         // Pages still below always slide in from their top.
         if (i > activeIndex) page.scrollTop = 0;
       });
+      setActiveNav(pages[activeIndex]);
     };
 
     // Whether the page's own content can still scroll that way. Overflow
@@ -306,6 +336,35 @@
     } else {
       desktopQuery.addListener(syncPager);
     }
+  }
+
+  // Without Pageable (mobile, reduced motion) the active link follows the
+  // native scroll: the current block is the last one whose top has
+  // passed the upper third of the screen.
+  if (navBlocks.length) {
+    var navTicking = false;
+
+    var updateNavOnScroll = function () {
+      navTicking = false;
+      if (pager) return;
+      var line = window.innerHeight / 3;
+      var current = navBlocks[0];
+      navBlocks.forEach(function (block) {
+        if (block.getBoundingClientRect().top <= line) current = block;
+      });
+      setActiveNav(current);
+    };
+
+    var onNavScroll = function () {
+      if (!navTicking) {
+        navTicking = true;
+        window.requestAnimationFrame(updateNavOnScroll);
+      }
+    };
+
+    window.addEventListener("scroll", onNavScroll, { passive: true });
+    window.addEventListener("resize", onNavScroll);
+    updateNavOnScroll();
   }
 
   // With Pageable active go to the page that is or holds the target;
@@ -444,49 +503,6 @@
   //   updateReveal();
   // }
 
-  // // Active nav link: highlight whichever header link matches the
-  // // section currently centred in the viewport.
-  // var navLinks = Array.prototype.slice.call(
-  //   document.querySelectorAll('.main-nav__list a[href^="#"]')
-  // );
-  // var navSections = navLinks
-  //   .map(function (link) {
-  //     var target = document.querySelector(link.getAttribute("href"));
-  //     return target ? { link: link, el: target } : null;
-  //   })
-  //   .filter(Boolean);
-
-  // if (navSections.length) {
-  //   var updateActiveNav = function () {
-  //     var centerY = window.innerHeight / 2;
-  //     var current = null;
-  //     navSections.forEach(function (entry) {
-  //       var rect = entry.el.getBoundingClientRect();
-  //       if (rect.top <= centerY && rect.bottom >= centerY) {
-  //         current = entry;
-  //       }
-  //     });
-  //     navSections.forEach(function (entry) {
-  //       entry.link.classList.toggle("is-active", entry === current);
-  //     });
-  //   };
-
-  //   var navTicking = false;
-  //   var onNavScroll = function () {
-  //     if (!navTicking) {
-  //       window.requestAnimationFrame(function () {
-  //         updateActiveNav();
-  //         navTicking = false;
-  //       });
-  //       navTicking = true;
-  //     }
-  //   };
-
-  //   window.addEventListener("scroll", onNavScroll, { passive: true });
-  //   window.addEventListener("resize", onNavScroll);
-  //   updateActiveNav();
-  // }
-
   // // Back-to-top marks: fade out while the page is actively scrolling,
   // // fade back in once scrolling has settled.
   // var idleMarks = document.querySelectorAll(".screen-end__mark--active");
@@ -516,7 +532,8 @@
   // }
 
   // Approach steps: cycle the highlighted step automatically, pausing
-  // while the visitor's mouse is over the row.
+  // while the visitor's mouse is over the row. The step under the mouse
+  // becomes the highlighted one, and the cycle resumes from it.
   var approachSteps = document.querySelectorAll(".approach-step");
   var approachRow = document.querySelector(".approach__steps");
   if (approachSteps.length && approachRow) {
@@ -529,6 +546,13 @@
     };
 
     setActiveStep(activeIndex);
+
+    approachSteps.forEach(function (step, i) {
+      step.addEventListener("mouseenter", function () {
+        activeIndex = i;
+        setActiveStep(activeIndex);
+      });
+    });
 
     if (!prefersReducedMotion) {
       var approachInterval = null;

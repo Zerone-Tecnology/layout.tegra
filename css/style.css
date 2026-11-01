@@ -323,7 +323,7 @@ body.pg-cover .pg-page.is-lifted {
   border: 3px solid var(--color-red);
   background: var(--color-white);
   cursor: pointer;
-  opacity: 0;
+  opacity: 1;
   transition: opacity 0.3s ease;
 }
 
@@ -554,7 +554,7 @@ body.pg-cover .pg-page.is-lifted {
 
 .hero__text {
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: 600;
   font-size: 28px;
   line-height: 1.35;
   color: var(--color-black);
@@ -613,6 +613,10 @@ html:not(:lang(kk)) .stats__label--top {
   display: none !important;
 }
 
+html:has(:lang(kk)) .stats__label--top {
+  margin-left: 0;
+}
+
 .stats__label--stacked {
   gap: 4px;
 }
@@ -668,14 +672,14 @@ html:not(:lang(kk)) .stats__label--top {
 }
 .chip-title > span{
   background-color: var(--color-red);
-  line-height: 1.7em;
+  line-height: 0.7em;
   padding: 5px 10px 0;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
 }
 
 .chip-title--black {
-  background: var(--color-black);
+  /* background: var(--color-black); */
   font-size: 28px;
   margin-top: 5px;
   padding: 5px 10px 0;
@@ -831,6 +835,10 @@ html:not(:lang(kk)) .stats__label--top {
   flex: 1;
 }
 
+.project-block__text .chip-title{
+  font-size: 34px;
+}
+
 .project-block__text .chip-title {
   margin-bottom: 10px;
 }
@@ -914,13 +922,13 @@ html:not(:lang(kk)) .stats__label--top {
   height: 50%;
 }
 
-.project-block-3 .chip-title--black{
+.chip-title--black{
   background-color: transparent;
   margin-bottom: 0;
   padding: 0;
 }
 
-.project-block-3 .chip-title--black > span{
+.chip-title--black > span{
   background-color: var(--color-dark);
   line-height: 1.7em;
   padding: 5px 10px;
@@ -1058,8 +1066,10 @@ html:not(:lang(kk)) .stats__label--top {
 
 /* Steps cycle through highlighted state automatically (js/main.js,
    every 2.4s, pausing on hover) instead of one or two steps being
-   permanently singled out. :focus-within also highlights a step so
-   keyboard users get the same cue when tabbing into it. */
+   permanently singled out. Hovering a step highlights it (also set in
+   js/main.js, so only one step is active at a time). :focus-within
+   also highlights a step so keyboard users get the same cue when
+   tabbing into it. */
 .approach-step.is-active,
 .approach-step:focus-within {
   --step-color: var(--color-red);
@@ -1179,12 +1189,13 @@ html:not(:lang(kk)) .stats__label--top {
   padding-block: 20px;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
   font-size: 12px;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   letter-spacing: 0.03em;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
-.footer__nav a:hover {
+.footer__nav a:hover,
+.footer__nav a.is-active {
   color: var(--color-red);
 }
 
@@ -1195,7 +1206,7 @@ html:not(:lang(kk)) .stats__label--top {
   gap: 8px;
   padding-block: 20px;
   font-size: 11px;
-  color: var(--color-gray-light);
+  color: var(--color-white);
 }
 
 .footer__bottom a:hover {
@@ -1335,6 +1346,10 @@ html.has-js-reveal .contact.in-view .contact__info {
   display: none;
 }
 
+@media screen and (max-width: 1366px) {
+
+}
+
 /* =========================================================
    Mobile Menu Screen Styles (< 1024px)
    ========================================================= */
@@ -1400,6 +1415,10 @@ html.has-js-reveal .contact.in-view .contact__info {
     text-transform: none;
   }
 
+  .mobile-menu .main-nav__list a.is-active {
+    color: var(--color-red);
+  }
+
   /* Нижний блок языков в мобильном меню */
   .mobile-lang-switch {
     position: static;
@@ -1425,131 +1444,6 @@ html.has-js-reveal .contact.in-view .contact__info {
   .mobile-lang-switch button:hover {
     color: var(--color-red);
   }
-}
-
-@media screen and (max-width: 900px) {
-  
-}
-
-@media screen and (max-width: 600px) {
-  .hero, .directions, .project-block, .priorities, .approach, .contact{
-    min-height: auto;               /* Отключаем принудительную высоту во весь экран */
-    padding-block: 44px;
-  }
-  .logo__image{
-    max-width: 70%;
-  }
-  .main-nav{
-    display: none;
-  }
-  .stats__item{
-    margin-bottom: 40px;
-  }
-  .stats__number{
-    font-size: 60px;
-  }
-  .stats__chip{
-    font-size: 16px;
-  }
-
-  .chip-title{
-    font-size: 28px;
-  }
-  .chip-title--black{
-    font-size: 20px;
-  }
-  .hero__grid{
-    flex-wrap: wrap;
-    flex-direction: column;
-  }
-  .hero__text{
-    font-size: 20px;
-  }
-  .stats{
-    flex-wrap: wrap;
-  }
-  .directions__grid{
-    grid-template-columns: repeat(1, 1fr);
-  }
-  .priorities__grid{
-    grid-template-columns: repeat(1, 1fr);
-  }
-  .approach__steps{
-    grid-template-columns: repeat(1, 1fr);
-  }
-  .project-block__layout{
-    flex-direction: column;
-  }
-  .contact__grid{
-    flex-direction: column;
-  }
-  .site-footer .logo{
-    width: 120px;
-  }
-  .footer__nav{
-    display: none;
-  }
-  .project-block__gallery .col-1{
-    padding-right: 15px;
-  }
-  .stats__label{
-    margin-left: 20%;
-  }
-
-  .approach .approach__steps{
-    margin-bottom: 0;
-  }
-
-  .approach-step__number{
-    color: var(--color-red);
-  }
-  .approach-step__rule{
-    background: var(--color-red);
-  }
-  .approach-step .chip-title > span{
-    background-color: var(--color-black);
-  }
-  .approach-step p{
-    color: var(--color-black);
-  }
-  .footer__phone{
-    font-size: 14px;
-  }
-
-  .directions .directions__grid{
-    margin-bottom: 0;
-  }
-  .screen-end{
-    display: none;
-  }
-
-  .approach .chip-title,
-  .directions .chip-title,
-  .priorities .chip-title{
-    text-align: center;
-    padding: 0 5px;
-  }
-  .contact .chip-title{
-    margin: auto;
-    margin-bottom: 32px;
-  }
-  .contact address{
-    width: 100%;
-  }
-  .contact .contact__info{
-    text-align: center;
-  }
-  .footer__bottom{
-    flex-wrap: wrap;
-  }
-  .mobile-menu{
-    display: block;
-  }
-
-  .lang-switch__menu{
-    position: sticky;
-  }
-  
 }
 
 /* =========================================================
@@ -1666,18 +1560,18 @@ html.has-js-reveal .contact.in-view .contact__info {
 
   .direction-card {
     /* Точная ширина карточки за вычетом боковых отступов */
-    flex: 0 0 33%;
+    flex: 0 0 50%;
     max-width: 100%;
     scroll-snap-align: center;
     scroll-snap-stop: always;
     position: relative;
-    padding-bottom: 60px; /* Отступ под стрелку */
+    padding: 60px 10%;
   }
 
   /* Сбрасываем вертикальные разделительные линии разметки десктопа */
-  .direction-card:not(:first-child)::after {
-    /* display: none; */
-  }
+  /* .direction-card:not(:first-child)::after {
+    display: none;
+  } */
 
   /* Показываем красную кнопку-стрелку */
   .direction-card__next {
@@ -1689,8 +1583,7 @@ html.has-js-reveal .contact.in-view .contact__info {
     border-radius: 10px;
     border: 2px solid var(--color-red);
     background: var(--color-white);
-    /* display: flex; */
-    display: none;
+    display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
@@ -1711,6 +1604,186 @@ html.has-js-reveal .contact.in-view .contact__info {
   }
 }
 
-@media screen and (max-width: 400px) {
 
+@media screen and (max-width: 900px) {
+  .hero__grid{
+    flex-direction: column;
+  }
+  .hero__media img{
+    height: 100%;
+  }
+  .stats{
+    flex-wrap: wrap;
+  }
+  .priorities__grid{
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .direction-card{
+    flex: 0 0 50%;
+  }
+  .direction-card:not(:first-child)::after{
+    left: -10px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .hero, .directions, .project-block, .priorities, .approach, .contact{
+    min-height: auto;               /* Отключаем принудительную высоту во весь экран */
+    padding-block: 44px;
+  }
+  .logo__image{
+    max-width: 70%;
+  }
+  .main-nav{
+    display: none;
+  }
+  .stats__item{
+    margin-bottom: 40px;
+  }
+  .stats__number{
+    font-size: 60px;
+  }
+  .stats__chip{
+    font-size: 16px;
+  }
+  .direction-card{
+    flex: 0 0 100%;
+    padding: 60px 10%;
+  }
+
+  .chip-title{
+    font-size: 28px;
+  }
+  .chip-title--black{
+    font-size: 20px;
+  }
+  .hero__grid{
+    flex-wrap: wrap;
+    flex-direction: column;
+  }
+  .hero__text{
+    font-size: 20px;
+  }
+  .stats{
+    flex-wrap: wrap;
+  }
+  .directions__grid{
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .priorities__grid{
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .approach__steps{
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .project-block__layout{
+    flex-direction: column;
+  }
+  .contact__grid{
+    flex-direction: column;
+  }
+  .site-footer .logo{
+    width: 120px;
+  }
+  .footer__nav{
+    display: none;
+  }
+  .project-block__gallery .col-1{
+    padding-right: 15px;
+  }
+  .stats__label{
+    margin-left: 20%;
+    line-height: 1.4em;
+  }
+  .hero__inner .stats{
+    margin-bottom: 50px;
+  }
+
+  .approach .approach__steps{
+    margin-bottom: 0;
+  }
+
+  .approach-step__number{
+    color: var(--color-red);
+  }
+  .approach-step__rule{
+    background: var(--color-red);
+  }
+  .approach-step .chip-title > span{
+    background-color: var(--color-black);
+  }
+  .approach-step p{
+    color: var(--color-black);
+  }
+  .footer__phone{
+    font-size: 14px;
+  }
+
+  .directions .directions__grid{
+    margin-bottom: 0;
+  }
+  .screen-end{
+    display: none;
+  }
+
+  .approach .chip-title,
+  .directions .chip-title,
+  .priorities .chip-title{
+    text-align: center;
+    padding: 0 5px 5px 0;
+  }
+  .contact .chip-title{
+    margin: auto;
+    margin-bottom: 32px;
+  }
+  .contact address{
+    width: 100%;
+  }
+  .contact .contact__info{
+    text-align: center;
+  }
+  .footer__bottom{
+    flex-wrap: wrap;
+  }
+  .mobile-menu{
+    display: block;
+  }
+
+  .lang-switch__menu{
+    position: sticky;
+  }
+  .container{
+    padding-inline: 30px;
+  }
+  .contact__info address p{
+    font-size: 22px;
+  }
+  .contact__info address{
+    margin-top: 10%;
+  }
+  
+}
+
+@media screen and (max-width: 400px) {
+  .container{
+    padding-inline: 20px;
+  }
+  .stats__item{
+    width: 50%;
+  }
+  .hero__inner .stats{
+    margin-bottom: 0px;
+  }
+  .chip-title{
+    font-size: 20px;
+  }
+  .direction-card {
+    flex: 0 0 100%;
+  }
+  .contact__info address p{
+    font-size: 20px;
+  }
+  .contact__info address{
+    margin-top: 10%;
+  }
 }
