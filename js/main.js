@@ -202,6 +202,16 @@
     pageContainer.style.setProperty("--pg-ease", PAGE_EASE);
 
     var setCoverState = function (activeIndex) {
+      // Fade the back-to-top mark out for the duration of the transition
+      // and back in once it settles (setIdleMarks is defined further
+      // down, but already assigned by the time this ever actually runs).
+      if (typeof setIdleMarks === "function") {
+        setIdleMarks(false);
+        window.clearTimeout(setCoverState.idleTimer);
+        setCoverState.idleTimer = window.setTimeout(function () {
+          setIdleMarks(true);
+        }, PAGE_SPEED);
+      }
       var activeIsFooter = pages[activeIndex].classList.contains("site-footer");
       if (activeIsFooter) {
         pageContainer.style.setProperty("--pg-footer-height", pages[activeIndex].offsetHeight + "px");
@@ -503,39 +513,50 @@
   //   updateReveal();
   // }
 
-  // // Back-to-top marks: fade out while the page is actively scrolling,
-  // // fade back in once scrolling has settled.
-  // var idleMarks = document.querySelectorAll(".screen-end__mark--active");
-  // if (idleMarks.length) {
-  //   var setIdle = function (isIdle) {
-  //     idleMarks.forEach(function (mark) {
-  //       mark.classList.toggle("is-idle", isIdle);
-  //     });
-  //   };
+  // Back-to-top marks: fade out while a page transition is in flight
+  // (Pageable) or while the page is actively scrolling (the mobile /
+  // reduced-motion fallback, where Pageable isn't active), fading back
+  // in once things settle so the mark reads as a deliberate cue rather
+  // than a static fixture on every screen.
+  var idleMarks = document.querySelectorAll(".screen-end__mark--active");
+  var setIdleMarks = function (isIdle) {
+    idleMarks.forEach(function (mark) {
+      mark.classList.toggle("is-idle", isIdle);
+    });
+  };
 
-  //   if (prefersReducedMotion) {
-  //     setIdle(true);
-  //   } else {
-  //     var idleTimer = null;
-  //     var onIdleScroll = function () {
-  //       setIdle(false);
-  //       window.clearTimeout(idleTimer);
-  //       idleTimer = window.setTimeout(function () {
-  //         setIdle(true);
-  //       }, 400);
-  //     };
-  //     window.addEventListener("scroll", onIdleScroll, { passive: true });
-  //     idleTimer = window.setTimeout(function () {
-  //       setIdle(true);
-  //     }, 400);
-  //   }
-  // }
+  if (idleMarks.length) {
+    if (prefersReducedMotion) {
+      setIdleMarks(true);
+    } else if (pager) {
+      // Pageable path: fade out as each transition starts (hooked into
+      // setCoverState below), fade back in once it finishes.
+      setIdleMarks(true);
+    } else {
+      var idleTimer = null;
+      var onIdleScroll = function () {
+        setIdleMarks(false);
+        window.clearTimeout(idleTimer);
+        idleTimer = window.setTimeout(function () {
+          setIdleMarks(true);
+        }, 400);
+      };
+      window.addEventListener("scroll", onIdleScroll, { passive: true });
+      idleTimer = window.setTimeout(function () {
+        setIdleMarks(true);
+      }, 400);
+    }
+  }
 
   // Approach steps: cycle the highlighted step automatically, pausing
   // while the visitor's mouse is over the row. The step under the mouse
-  // becomes the highlighted one, and the cycle resumes from it.
+  // becomes the highlighted one, and the cycle resumes from it. Per spec
+  // the cycle only starts once the block itself has appeared on screen —
+  // starting it at page load means whoever scrolls down to it later sees
+  // a step lit at random instead of the first one.
   var approachSteps = document.querySelectorAll(".approach-step");
   var approachRow = document.querySelector(".approach__steps");
+  var approachSection = document.querySelector(".approach");
   if (approachSteps.length && approachRow) {
     var activeIndex = 0;
 
@@ -544,8 +565,6 @@
         step.classList.toggle("is-active", i === index);
       });
     };
-
-    setActiveStep(activeIndex);
 
     approachSteps.forEach(function (step, i) {
       step.addEventListener("mouseenter", function () {
@@ -558,6 +577,9 @@
       var approachInterval = null;
 
       var startApproachCycle = function () {
+        window.clearInterval(approachInterval);
+        activeIndex = 0;
+        setActiveStep(activeIndex);
         approachInterval = window.setInterval(function () {
           activeIndex = (activeIndex + 1) % approachSteps.length;
           setActiveStep(activeIndex);
@@ -568,9 +590,28 @@
         window.clearInterval(approachInterval);
       };
 
-      startApproachCycle();
       approachRow.addEventListener("mouseenter", stopApproachCycle);
       approachRow.addEventListener("mouseleave", startApproachCycle);
+
+      if (approachSection && "IntersectionObserver" in window) {
+        var approachObserver = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                startApproachCycle();
+              } else {
+                stopApproachCycle();
+              }
+            });
+          },
+          { threshold: 0.5 }
+        );
+        approachObserver.observe(approachSection);
+      } else {
+        startApproachCycle();
+      }
+    } else {
+      setActiveStep(activeIndex);
     }
   }
 })();

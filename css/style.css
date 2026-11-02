@@ -237,6 +237,15 @@ body.pg-cover .pg-page.is-lifted {
   display: none;
 }
 
+/* Not in the mockup, and at these narrower desktop widths the dots sit
+   on top of the page photos/text rather than clear of them — hide
+   rather than fight for space that isn't there. */
+@media screen and (min-width: 1024px) and (max-width: 1400px) {
+  .pg-pips {
+    display: none !important;
+  }
+}
+
 /* =========================================================
    Section title (red banner)
    ========================================================= */
@@ -323,7 +332,7 @@ body.pg-cover .pg-page.is-lifted {
   border: 3px solid var(--color-red);
   background: var(--color-white);
   cursor: pointer;
-  opacity: 1;
+  opacity: 0;
   transition: opacity 0.3s ease;
 }
 
@@ -554,7 +563,7 @@ body.pg-cover .pg-page.is-lifted {
 
 .hero__text {
   font-family: var(--font-display);
-  font-weight: 600;
+  font-weight: 700;
   font-size: 28px;
   line-height: 1.35;
   color: var(--color-black);
@@ -594,7 +603,7 @@ body.pg-cover .pg-page.is-lifted {
   margin-left: 0;
   min-height: 32px;
   display: inline-block;
-  line-height: 1.85em;
+  line-height: 1.4em;
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 20px;
@@ -609,15 +618,30 @@ body.pg-cover .pg-page.is-lifted {
   -webkit-box-decoration-break: clone;
 }
 
+/* An empty chip (e.g. a language's unused second stat line) would
+   otherwise still render as a small padded box, reading as a stray
+   gap in the middle of the caption. */
+.stats__label > span:empty {
+  display: none;
+}
+
 html:not(:lang(kk)) .stats__label--top {
   display: none !important;
 }
 
 html:has(:lang(kk)) .stats__label--top {
   margin-left: 0;
+  white-space: nowrap;
+  height: 34px;
 }
 
+/* Two chips in a stacked label must always sit one above the other —
+   relying on them being too wide to fit on one line was fragile and
+   broke for short words (e.g. the Kazakh "ірі жоба"). */
 .stats__label--stacked {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   gap: 4px;
 }
 
@@ -725,8 +749,11 @@ html:has(:lang(kk)) .stats__label--top {
 }
 
 .direction-card__icon {
-  width: 100px;
-  height: auto;
+  width: auto;
+  /* Fixed height (not width) so icons with different intrinsic aspect
+     ratios still reserve the same vertical space — otherwise the fixed
+     gap below them makes each card's text start at a different height. */
+  height: 90px;
 }
 
 .direction-card p {
@@ -839,6 +866,14 @@ html:has(:lang(kk)) .stats__label--top {
   font-size: 34px;
 }
 
+/* "Featured Projects" (EN) is long enough to wrap onto a second line
+   within this column; the mockup keeps it on one line. Scoped to the
+   red eyebrow chip only, so the black title chip below it still wraps
+   normally (e.g. "Radio Communication" is meant to be two lines). */
+.project-block__text .chip-title:not(.chip-title--black) {
+  white-space: nowrap;
+}
+
 .project-block__text .chip-title {
   margin-bottom: 10px;
 }
@@ -930,7 +965,7 @@ html:has(:lang(kk)) .stats__label--top {
 
 .chip-title--black > span{
   background-color: var(--color-dark);
-  line-height: 1.7em;
+  line-height: 1.35em;
   padding: 5px 10px;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
@@ -983,6 +1018,7 @@ html:has(:lang(kk)) .stats__label--top {
 
 .priority-card p {
   font-family: var(--font-display);
+  font-weight: 700;
   font-size: 14px;
   line-height: 1.6;
   color: var(--color-black);
@@ -1058,6 +1094,7 @@ html:has(:lang(kk)) .stats__label--top {
 
 .approach-step p {
   font-family: var(--font-display);
+  font-weight: 700;
   font-size: 14px;
   line-height: 1.6;
   color: var(--step-text-color);
@@ -1185,7 +1222,7 @@ html:has(:lang(kk)) .stats__label--top {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 16px 64px;
+  gap: 16px 36px;
   padding-block: 20px;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
   font-size: 12px;
@@ -1346,8 +1383,64 @@ html.has-js-reveal .contact.in-view .contact__info {
   display: none;
 }
 
-@media screen and (max-width: 1366px) {
+/* Short laptop screens (1366x768, 1024x768): the full-screen blocks'
+   generous vertical rhythm doesn't fit, cropping content that Pageable's
+   page-by-page flipping then makes hard to reach by scrolling. Tighten
+   the paddings/margins instead of relying on the internal-scroll
+   fallback, so everything just fits. Scoped to the desktop width where
+   Pageable is active (<1024px uses the separate mobile layout). */
+@media screen and (min-width: 1024px) and (max-height: 820px) {
+  .hero,
+  .directions,
+  .project-block,
+  .priorities,
+  .approach,
+  .contact {
+    padding-block: 32px;
+  }
 
+  .hero__inner .hero__grid {
+    margin-bottom: 28px;
+  }
+
+  .hero__inner .stats {
+    margin-bottom: 40px;
+  }
+
+  .stats__number {
+    font-size: 64px;
+  }
+
+  .directions__inner .chip-title-wrap,
+  .priorities__inner .chip-title-wrap,
+  .approach__inner .chip-title-wrap {
+    margin-bottom: 32px;
+  }
+
+  .directions__inner .directions__grid,
+  .priorities__inner .priorities__grid,
+  .approach__inner .approach__steps {
+    margin-bottom: 40px;
+  }
+
+  .project-block__inner .project-block__layout {
+    margin-bottom: 32px;
+  }
+
+  .contact__inner .contact__grid {
+    margin-bottom: 40px;
+  }
+}
+
+/* The Russian labels are long enough that the header nav wraps onto a
+   second line in this narrow desktop range (just above the mobile
+   breakpoint) — tighten the gap and type size so it keeps fitting on
+   one line instead. */
+@media screen and (min-width: 1024px) and (max-width: 1120px) {
+  .site-header .main-nav__list {
+    gap: 4px 18px;
+    font-size: 13px;
+  }
 }
 
 /* =========================================================

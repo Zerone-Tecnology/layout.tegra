@@ -3,7 +3,7 @@
 
   // Keys whose translation contains markup (e.g. <br>) and must be
   // applied via innerHTML instead of textContent.
-  var HTML_KEYS = ["contact.address"];
+  var HTML_KEYS = ["contact.address", "hero.stat3a", "hero.stat3kz"];
 
   var STORAGE_KEY = "tegra-lang";
   var DEFAULT_LANG = "en";
@@ -75,7 +75,7 @@
       "approach.s4_d": "We remain involved with the project even after implementation – adapting it to changes, upgrading, and expanding it as needed",
 
       "contact.title": "Contact Us",
-      "contact.address": "20, Akhmedyarov st. | Almaty |<br>050059 | Republic of Kazakhstan",
+      "contact.address": "050059 | Republic of Kazakhstan | Almaty<br>Akhmedyarov st. | 20",
 
       "footer.copyright": "© 2026, TEGRA Kazakhstan. All rights reserved",
       "footer.privacy": "Privacy Policy"
@@ -99,7 +99,7 @@
       "hero.stat1": "лет на рынке",
       "hero.stat2a": "крупных",
       "hero.stat2b": "проектов",
-      "hero.stat3a": "сертификатов от ведущих производителей",
+      "hero.stat3a": "сертификатов<br>от&nbsp;ведущих<br>производителей",
       "hero.stat3b": "",
 
       "directions.title": "Направления деятельности",
@@ -145,7 +145,7 @@
       "approach.s4_d": "После внедрения оказываем поддержку и продолжаем работать с проектом - адаптируем его к изменениям, модернизируем и расширяем, если это необходимо",
 
       "contact.title": "Контакты",
-      "contact.address": "050059 | Казахстан | г. Алматы <br> ул. Ахмедьярова | д. 20",
+      "contact.address": "050059 | Казахстан | г.&nbsp;Алматы<br>ул. Ахмедьярова | д. 20",
 
       "footer.copyright": "© 2026, TEGRA Kazakhstan. Все права защищены",
       "footer.privacy": "Политика конфиденциальности"
@@ -168,7 +168,7 @@
       "hero.stat1": "жыл",
       "hero.stat2a": "ірі жоба",
       "hero.stat2b": "",
-      "hero.stat3kz": "Жетекші өндірушілерден",
+      "hero.stat3kz": "Жетекші&nbsp;өндірушілерден",
       "hero.stat3a": "маман сертификаты",
       "hero.stat3b": "",
 
@@ -215,7 +215,7 @@
       "approach.s4_d": "Жобаны енгізгеннен кейін де қолдау көрсетіп, жобамен жұмысты жалғастырамыз – қажет болған жағдайда оны өзгеріске бейімдейміз, жаңғыртамыз және кеңейтеміз",
 
       "contact.title": "Байланыс",
-      "contact.address": "Қазақстан Республикасы | 050059<br>|  Алматы қаласы, Ахмедьяров көшесі | 20",
+      "contact.address": "Қазақстан Республикасы | 050059<br>Алматы қаласы | Ахмедьяров көшесі | 20",
 
       "footer.copyright": "© 2026, TEGRA Kazakhstan. Барлық құқықтар қорғалған",
       "footer.privacy": "Құпиялылық саясаты"
