@@ -33,9 +33,22 @@
 
   if (directionsContainer) {
     var dirNextButtons = directionsContainer.querySelectorAll(".direction-card__next");
+    var dirPrevButtons = directionsContainer.querySelector(".direction-card__prev");
 
     dirNextButtons.forEach(function (button, index) {
       button.addEventListener("click", function () {
+        if (window.innerWidth >= 1024) return;
+
+        var cards = directionsContainer.querySelectorAll(".direction-card");
+        var nextIndex = (index + 1) % cards.length; // Переход к следующей карточке или зацикливание на 1-ю
+
+        cards[nextIndex].scrollIntoView({
+          behavior: "smooth",
+          block: "nearest",
+          inline: "center"
+        });
+      });
+      dirPrevButtons.addEventListener("click", function () {
         if (window.innerWidth >= 1024) return;
 
         var cards = directionsContainer.querySelectorAll(".direction-card");

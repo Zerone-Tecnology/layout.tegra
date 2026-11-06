@@ -607,7 +607,7 @@ body.pg-cover .pg-page.is-lifted {
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 20px;
-  margin-left: 40%;
+  margin-left: 30%;
 }
 
 .stats__label > span{
@@ -616,6 +616,7 @@ body.pg-cover .pg-page.is-lifted {
   padding: 5px 10px;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
+  line-height: 1.7em;
 }
 
 /* An empty chip (e.g. a language's unused second stat line) would
@@ -639,7 +640,8 @@ html:has(:lang(kk)) .stats__label--top {
    relying on them being too wide to fit on one line was fragile and
    broke for short words (e.g. the Kazakh "ірі жоба"). */
 .stats__label--stacked {
-  display: flex;
+  /* display: flex; */
+  display: flow;
   flex-direction: column;
   align-items: flex-start;
   gap: 4px;
@@ -716,7 +718,7 @@ html:has(:lang(kk)) .stats__label--top {
 .directions__grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  column-gap: 48px;
+  column-gap: 30px;
 }
 
 .direction-card {
@@ -726,6 +728,7 @@ html:has(:lang(kk)) .stats__label--top {
   flex-direction: column;
   align-items: flex-start;
   gap: 30px;
+  padding-left: 30px;
 }
 
 .direction-card::before {
@@ -743,7 +746,7 @@ html:has(:lang(kk)) .stats__label--top {
   position: absolute;
   top: 15px;
   bottom: 0;
-  left: -24px;
+  left: -17px;
   width: 4px;
   background: var(--color-black);
 }
@@ -832,6 +835,7 @@ html:has(:lang(kk)) .stats__label--top {
 .project-block__gallery {
   display: flex;
   flex-wrap: wrap;
+  width: 40%;
 }
 
 .project-block__gallery img {
@@ -966,7 +970,7 @@ html:has(:lang(kk)) .stats__label--top {
 .chip-title--black > span{
   background-color: var(--color-dark);
   line-height: 1.35em;
-  padding: 5px 10px;
+  padding: 7px 10px 5px;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
 }
@@ -1564,6 +1568,13 @@ html.has-js-reveal .contact.in-view .contact__info {
 /* =========================================================
    Approach — Мобильные устройства (горизонтальный скролл)
    ========================================================= */
+@media screen and (max-width: 1130px) {
+  .main-nav__list{
+    font-size: 14px;
+  }
+}
+
+
 @media screen and (max-width: 1023px) {
   /* 1. Выгоняем скролл-контейнер за пределы паддингов .container */
   .approach .container:has(.approach__steps) {
@@ -1667,9 +1678,9 @@ html.has-js-reveal .contact.in-view .contact__info {
   } */
 
   /* Показываем красную кнопку-стрелку */
-  .direction-card__next {
+  .direction-card__next, .direction-card__prev {
     position: absolute;
-    right: 15px;
+    right: 30px;
     bottom: 0;
     width: 44px;
     height: 44px;
@@ -1681,20 +1692,45 @@ html.has-js-reveal .contact.in-view .contact__info {
     justify-content: center;
     cursor: pointer;
   }
+  .directions .direction-card:not(:first-child):not(:last-child) .direction-card__next{
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  .directions .direction-card:last-child .direction-card__next{
+    transform: rotate(180deg);
+  }
+  .direction-card__next:active img, .direction-card__prev img{}
+  .direction-card__prev{
+    right: 70px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
 
   .direction-card__next img {
     width: 16px;
     height: 16px;
     transform: rotate(90deg); /* Поворот шеврона вправо */
   }
+  .direction-card__prev img {
+    width: 16px;
+    height: 16px;
+    transform: rotate(270deg); /* Поворот шеврона вправо */
+  }
 
-  .direction-card__next:active {
+  .direction-card__next:active, .direction-card__prev:active {
     background: var(--color-red);
   }
 
   .direction-card__next:active img {
     filter: brightness(0) invert(1);
   }
+  .direction-card__prev img{
+    filter: brightness(0) invert(0);
+  }
+  .direction-card::before{
+    width: 95%;
+  }
+
 }
 
 
@@ -1717,6 +1753,19 @@ html.has-js-reveal .contact.in-view .contact__info {
   .direction-card:not(:first-child)::after{
     left: -10px;
   }
+  .direction-card::before{
+    width: 100%;
+  }
+  .direction-card__prev img{
+    filter: brightness(1) invert(0);
+  }
+  .project-block__gallery{
+    width: 100%;
+  }
+  .project-block__layout{
+    flex-direction: column;
+  }
+  
 }
 
 @media screen and (max-width: 600px) {
@@ -1769,9 +1818,7 @@ html.has-js-reveal .contact.in-view .contact__info {
   .approach__steps{
     grid-template-columns: repeat(1, 1fr);
   }
-  .project-block__layout{
-    flex-direction: column;
-  }
+
   .contact__grid{
     flex-direction: column;
   }
@@ -1855,6 +1902,10 @@ html.has-js-reveal .contact.in-view .contact__info {
     margin-top: 10%;
   }
   
+  .direction-card::before {
+    /* width: 90%; */
+  }
+  
 }
 
 @media screen and (max-width: 400px) {
@@ -1878,5 +1929,17 @@ html.has-js-reveal .contact.in-view .contact__info {
   }
   .contact__info address{
     margin-top: 10%;
+  }
+}
+
+@media screen and (max-height: 768px){
+  body.pg-cover .pg-page:not(.site-footer){
+    padding-top: calc(var(--header-height) + 24px);
+  }
+  .project-block__gallery .col-1{
+    padding-top: 15px;
+  }
+  .project-block__text .chip-title{
+    font-size: 30px;
   }
 }
