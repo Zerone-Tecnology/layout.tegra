@@ -384,7 +384,12 @@ body.pg-cover .pg-page.is-lifted {
 .logo {
   display: inline-flex;
   flex-direction: column;
-  align-items: center;
+  /* Both the header and footer logo are now a single <img> (no
+     separate name/tagline text alongside it to center against), but
+     the link box still ends up wider than the image — centering it
+     left a visible gap before the logo, most noticeable on mobile
+     where it reads as "the logo isn't flush left". */
+  align-items: flex-start;
   line-height: 1;
 }
 
@@ -686,7 +691,13 @@ html:has(:lang(kk)) .stats__label--top {
 }
 
 .chip-title {
-  display: inline-block;
+  /* block (not inline-block) so two adjacent chip titles — e.g. the red
+     "Featured Projects" eyebrow immediately followed by a black title
+     chip — always stack on separate lines. inline-block let them sit
+     side by side whenever both happened to be narrow enough to fit the
+     same line, which broke at smaller font sizes/short viewports. */
+  display: block;
+  width: fit-content;
   /* background: var(--color-red); */
   color: var(--color-white);
   font-family: var(--font-display);
@@ -729,6 +740,7 @@ html:has(:lang(kk)) .stats__label--top {
   align-items: flex-start;
   gap: 30px;
   padding-left: 30px;
+  padding-right: 30px;
 }
 
 .direction-card::before {
@@ -870,6 +882,13 @@ html:has(:lang(kk)) .stats__label--top {
   font-size: 34px;
 }
 
+/* The red eyebrow ("Featured Projects") and the black title below it
+   were rendering at the same size; the mockup has the eyebrow bigger
+   and the title noticeably smaller. */
+.project-block__text .chip-title--black {
+  font-size: 28px;
+}
+
 /* "Featured Projects" (EN) is long enough to wrap onto a second line
    within this column; the mockup keeps it on one line. Scoped to the
    red eyebrow chip only, so the black title chip below it still wraps
@@ -969,8 +988,8 @@ html:has(:lang(kk)) .stats__label--top {
 
 .chip-title--black > span{
   background-color: var(--color-dark);
-  line-height: 1.35em;
-  padding: 7px 10px 5px;
+  line-height: 1.15em;
+  padding: 5px 10px 3px;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
 }
@@ -981,7 +1000,21 @@ html:has(:lang(kk)) .stats__label--top {
 .chip-title--sm {
   font-size: 22px;
   margin-top: 0;
+  padding-top: 0;
   text-transform: none;
+}
+
+/* The tighter line-height on .chip-title--black > span (above) is
+   sized for the project blocks' single-line title chip and crushes a
+   two-line priority/approach title together with no visible gap — KZ
+   and EN titles are long enough to wrap, RU mostly isn't, which is why
+   this only showed up in those two languages. Restore a readable
+   line-height for this smaller chip variant specifically, and drop the
+   top padding so its black background lines up with the card's red
+   rule above it instead of starting a few pixels below it. */
+.chip-title--black.chip-title--sm > span {
+  line-height: 1.5em;
+  padding: 5px 10px;
 }
 
 /* =========================================================
@@ -1142,9 +1175,15 @@ html:has(:lang(kk)) .stats__label--top {
   gap: 48px;
 }
 
-.contact__media,
+.contact__media {
+  flex: 0.88;
+}
+
 .contact__info {
-  flex: 1;
+  /* Slightly wider than the photo (was an even 50/50 split) so the
+     Kazakh address — its words run longer — fits "Ахмедьяров көшесі | 20"
+     on one line instead of stranding "20" alone on a third. */
+  flex: 1.12;
 }
 
 .contact__media {
@@ -1230,6 +1269,7 @@ html:has(:lang(kk)) .stats__label--top {
   padding-block: 20px;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
   font-size: 12px;
+  font-weight: 700;
   /* text-transform: uppercase; */
   letter-spacing: 0.03em;
   justify-content: flex-start;
@@ -1350,6 +1390,7 @@ html.has-js-reveal .contact.in-view .contact__info {
   position: relative;
   z-index: 1001;
   padding: 0;
+  margin-top: -6px;
 }
 
 .nav-toggle__bar {
@@ -1617,7 +1658,7 @@ html.has-js-reveal .contact.in-view .contact__info {
     padding-bottom: 56px;
   }
 
-  .approach-step__next {
+  .approach-step__next, .approach-step__prev {
     position: absolute;
     right: 0;
     bottom: 0;
@@ -1632,10 +1673,37 @@ html.has-js-reveal .contact.in-view .contact__info {
     cursor: pointer;
   }
 
+  /* Steps 2 and 3 show both arrows, sharing one pill; step 1 (start)
+     and step 4 (end) keep only their single next/prev arrow. */
+  .approach-step:has(.approach-step__prev) .approach-step__next {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  .approach-step__prev {
+    right: 40px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
   .approach-step__next img {
     width: 16px;
     height: 16px;
     transform: rotate(90deg);
+  }
+
+  .approach-step__prev img {
+    width: 16px;
+    height: 16px;
+    transform: rotate(270deg);
+  }
+
+  .approach-step__next:active, .approach-step__prev:active {
+    background: var(--color-red);
+  }
+
+  .approach-step__next:active img, .approach-step__prev:active img {
+    filter: brightness(0) invert(1);
   }
 
   /* Убираем боковые паддинги у контейнера directions, чтобы слайды проходили от края до края */
@@ -1676,6 +1744,16 @@ html.has-js-reveal .contact.in-view .contact__info {
   /* .direction-card:not(:first-child)::after {
     display: none;
   } */
+
+  /* The gap between cards drops to 16px here (desktop's is 30px, hence
+     its own -17px offset below); re-centre the 4px-wide divider for
+     the new gap too — centering formula is -(gap/2 + divider-width/2).
+     Previously this wasn't overridden until the (separate, narrower)
+     max-width:900px breakpoint, so widths between 901-1023px used the
+     desktop's -17px against a 16px gap and visibly drifted. */
+  .direction-card:not(:first-child)::after {
+    left: -10px;
+  }
 
   /* Показываем красную кнопку-стрелку */
   .direction-card__next, .direction-card__prev {
@@ -1728,7 +1806,7 @@ html.has-js-reveal .contact.in-view .contact__info {
     filter: brightness(0) invert(0);
   }
   .direction-card::before{
-    width: 95%;
+    width: 100%;
   }
 
 }
@@ -1773,20 +1851,18 @@ html.has-js-reveal .contact.in-view .contact__info {
     min-height: auto;               /* Отключаем принудительную высоту во весь экран */
     padding-block: 44px;
   }
-  .logo__image{
-    max-width: 70%;
-  }
   .main-nav{
     display: none;
   }
   .stats__item{
-    margin-bottom: 40px;
+    margin-bottom: 0;
+    width: 33.33%;
   }
   .stats__number{
-    font-size: 60px;
+    font-size: 38px;
   }
   .stats__chip{
-    font-size: 16px;
+    font-size: 11px;
   }
   .direction-card{
     flex: 0 0 100%;
@@ -1807,7 +1883,7 @@ html.has-js-reveal .contact.in-view .contact__info {
     font-size: 20px;
   }
   .stats{
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
   }
   .directions__grid{
     grid-template-columns: repeat(1, 1fr);
@@ -1822,6 +1898,9 @@ html.has-js-reveal .contact.in-view .contact__info {
   .contact__grid{
     flex-direction: column;
   }
+  .contact__media{
+    display: none;
+  }
   .site-footer .logo{
     width: 120px;
   }
@@ -1832,11 +1911,11 @@ html.has-js-reveal .contact.in-view .contact__info {
     padding-right: 15px;
   }
   .stats__label{
-    margin-left: 20%;
+    margin-left: 0;
     line-height: 1.4em;
   }
   .hero__inner .stats{
-    margin-bottom: 50px;
+    margin-bottom: 24px;
   }
 
   .approach .approach__steps{
@@ -1866,9 +1945,13 @@ html.has-js-reveal .contact.in-view .contact__info {
     display: none;
   }
 
-  .approach .chip-title,
+  /* Scoped to the section heading only (.chip-title-wrap > .chip-title,
+     the H2) — .approach .chip-title and .priorities .chip-title also
+     matched each step/card's own title chip, forcing it centered when
+     it's meant to stay left-aligned under its number/red rule. */
+  .approach .chip-title-wrap .chip-title,
   .directions .chip-title,
-  .priorities .chip-title{
+  .priorities .chip-title-wrap .chip-title{
     text-align: center;
     padding: 0 5px 5px 0;
   }
@@ -1939,7 +2022,10 @@ html.has-js-reveal .contact.in-view .contact__info {
   .project-block__gallery .col-1{
     padding-top: 15px;
   }
-  .project-block__text .chip-title{
+  .project-block__text .chip-title:not(.chip-title--black){
     font-size: 30px;
+  }
+  .project-block__text .chip-title--black{
+    font-size: 24px;
   }
 }

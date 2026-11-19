@@ -32,56 +32,63 @@
   var directionsContainer = document.querySelector(".directions__grid");
 
   if (directionsContainer) {
-    var dirNextButtons = directionsContainer.querySelectorAll(".direction-card__next");
-    var dirPrevButtons = directionsContainer.querySelector(".direction-card__prev");
+    var directionCardList = directionsContainer.querySelectorAll(".direction-card");
 
-    dirNextButtons.forEach(function (button, index) {
-      button.addEventListener("click", function () {
-        if (window.innerWidth >= 1024) return;
-
-        var cards = directionsContainer.querySelectorAll(".direction-card");
-        var nextIndex = (index + 1) % cards.length; // Переход к следующей карточке или зацикливание на 1-ю
-
-        cards[nextIndex].scrollIntoView({
-          behavior: "smooth",
-          block: "nearest",
-          inline: "center"
-        });
+    var goToDirectionCard = function (fromCard, direction) {
+      if (window.innerWidth >= 1024) return;
+      var cards = Array.prototype.slice.call(directionCardList);
+      var index = cards.indexOf(fromCard);
+      var targetIndex = (index + direction + cards.length) % cards.length;
+      cards[targetIndex].scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "center"
       });
-      dirPrevButtons.addEventListener("click", function () {
-        if (window.innerWidth >= 1024) return;
+    };
 
-        var cards = directionsContainer.querySelectorAll(".direction-card");
-        var nextIndex = (index + 1) % cards.length; // Переход к следующей карточке или зацикливание на 1-ю
+    directionsContainer.querySelectorAll(".direction-card__next").forEach(function (button) {
+      button.addEventListener("click", function () {
+        goToDirectionCard(button.closest(".direction-card"), 1);
+      });
+    });
 
-        cards[nextIndex].scrollIntoView({
-          behavior: "smooth",
-          block: "nearest",
-          inline: "center"
-        });
+    directionsContainer.querySelectorAll(".direction-card__prev").forEach(function (button) {
+      button.addEventListener("click", function () {
+        goToDirectionCard(button.closest(".direction-card"), -1);
       });
     });
   }
 
-// Horizontal scroll for Approach (Mobile only)
+// Horizontal scroll for Approach (Mobile only): step 1 only has a
+// "next" arrow, step 4 only has "prev", steps 2-3 have both — each
+// button's own step index is looked up by position among all steps
+// (not among same-type buttons), since prev only exists from step 2 on.
   var approachContainer = document.querySelector(".approach__steps");
 
   if (approachContainer) {
-    var nextButtons = approachContainer.querySelectorAll(".approach-step__next");
-    
-    nextButtons.forEach(function (button, index) {
-      button.addEventListener("click", function () {
-        // Проверяем, что мы на мобильном устройстве
-        if (window.innerWidth >= 1024) return;
+    var approachStepList = approachContainer.querySelectorAll(".approach-step");
 
-        var steps = approachContainer.querySelectorAll(".approach-step");
-        var nextIndex = (index + 1) % steps.length; // Переход к следующему шагу или закольцовывание на 1-й
-        
-        steps[nextIndex].scrollIntoView({
-          behavior: "smooth",
-          block: "nearest",
-          inline: "start"
-        });
+    var goToApproachStep = function (fromStep, direction) {
+      if (window.innerWidth >= 1024) return;
+      var steps = Array.prototype.slice.call(approachStepList);
+      var index = steps.indexOf(fromStep);
+      var targetIndex = (index + direction + steps.length) % steps.length;
+      steps[targetIndex].scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "start"
+      });
+    };
+
+    approachContainer.querySelectorAll(".approach-step__next").forEach(function (button) {
+      button.addEventListener("click", function () {
+        goToApproachStep(button.closest(".approach-step"), 1);
+      });
+    });
+
+    approachContainer.querySelectorAll(".approach-step__prev").forEach(function (button) {
+      button.addEventListener("click", function () {
+        goToApproachStep(button.closest(".approach-step"), -1);
       });
     });
   }
@@ -106,6 +113,12 @@
       hidePreloader();
     } else {
       window.addEventListener("load", hidePreloader);
+      // Safety net: on some mobile connections/browsers "load" can be
+      // delayed well past the point the page is actually usable (one
+      // slow image, a blocked third-party script) and the preloader was
+      // reported stuck indefinitely in that case. Never let it block the
+      // page for more than a few seconds regardless of the cause.
+      window.setTimeout(hidePreloader, 4000);
     }
   }
 
